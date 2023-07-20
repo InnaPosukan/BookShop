@@ -1,8 +1,17 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { BOOKPAGE_ROUTE } from "../utils/consts";
 
 const BookItem = ({ book }) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(BOOKPAGE_ROUTE + '/' + book.id);
+  };
+
   return (
     <div
+      onClick={handleClick}
       style={{
         flex: "0 0 20%",
         padding: "10px",
@@ -11,11 +20,10 @@ const BookItem = ({ book }) => {
         flexDirection: "column",
         alignItems: "center",
         position: "relative",
-        
       }}
     >
       <div
-        style={{
+        style={{ 
           width: 220,
           height: 200,
           cursor: "pointer",

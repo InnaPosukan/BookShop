@@ -4,6 +4,10 @@ import AppRouter from './components/AppRouter';
 import Navbar from './components/NavBar';
 import Footer from './components/Footer';
 
+
+
+
+
 const App =() => {
   return(
     <BrowserRouter> 

@@ -2,10 +2,10 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <footer className="footer bg-light" style={{ position: "fixed", left: 0, bottom: 0, width: "100%", boxShadow: "0 -2px 4px rgba(0, 0, 0, 0.1)" }}>
+    <footer className="footer bg-light" style={{  left: 0, bottom: 0, width: "100%", position:"fixed", boxShadow: "0 -2px 4px rgba(0, 0, 0, 0.1)" }}>
       <div className="container-fluid">
         <div className="row">
-          <div className="col-md-6">
+          <div className="col-md-5">
             <h5>About Us</h5>
             <p style={{ textAlign: "left" }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla malesuada tellus eu nulla malesuada, vel efficitur est tincidunt.</p>
           </div>

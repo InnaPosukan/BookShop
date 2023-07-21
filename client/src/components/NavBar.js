@@ -31,11 +31,14 @@ const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-md bg-body-tertiary shadow-sm">
       <div className="container-fluid">
-        <a className="navbar-brand d-flex align-items-center" href="/shop" style={{ marginLeft: '-10px', padding: '0 30px' }}>
+        <a className="navbar-brand d-flex align-items-center" href="/" style={{ marginLeft: '-10px', padding: '0 30px' }}>
           <img src={logo} alt="Logo" className="d-inline-block align-text-top" style={{ transition: 'transform 0.3s' }} />
           <span className="ms-2" style={{ fontSize: '19px', transition: 'color 0.3s' }}>BookShop</span>
         </a>
 
+        <div className="d-flex">
+          <a href="/shop" className="btn" style={basketButtonStyle} onMouseEnter={handleBasketHover} onMouseLeave={handleBasketHover}>Shop</a>
+        </div>
         <div className="d-flex">
           <a href="/login" className="btn" style={basketButtonStyle} onMouseEnter={handleBasketHover} onMouseLeave={handleBasketHover}>Login</a>
         </div>

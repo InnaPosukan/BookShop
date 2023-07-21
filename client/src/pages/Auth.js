@@ -30,7 +30,8 @@ const Auth = () => {
     backgroundColor: '#f9f9f9',
     padding: '20px',
     borderRadius: '5px',
-    width: '500px', // Increase the width of the form
+    width: '500px',
+    boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)', 
   };
 
   const headingStyle = {
@@ -64,7 +65,7 @@ const Auth = () => {
     color: '#000',
     cursor: 'pointer',
     transition: 'background-color 0.3s ease',
-    marginTop: '20px', // Add margin to the top
+    marginTop: '20px', 
   };
 
   const authInfoStyle = {

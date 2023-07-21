@@ -6,7 +6,7 @@ const TypeBar = observer(() => {
   const { book } = useContext(Context);
 
   return (
-    <ul className="list-group list-group-flush" style={{ marginLeft: "30px", cursor: "pointer" }}>
+    <ul className="list-group list-group-flush" style={{ marginLeft: "30px",marginTop:"10px", cursor: "pointer" }}>
       {book.types.map((type) => (
         <li
           key={type.id}

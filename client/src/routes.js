@@ -8,15 +8,14 @@ import Auth from "./pages/Auth"
 import BookPage from "./pages/BookPage"
 
 export const authRoutes = [
-    {
-       path: ADMIN_ROUTE,
-       Component:Admin
-    },
+ 
     {
         path: BASKET_ROUTE,
         Component: Basket
-    },
-]
+      },
+      
+   
+    ];
 export const publicRoutes = [
     {
         path: MAINPAGE_ROUTE,
@@ -35,7 +34,12 @@ export const publicRoutes = [
         Component:  Auth
     },
     {
+        path: ADMIN_ROUTE,
+        Component:  Admin
+    },
+    {
         path: BOOKPAGE_ROUTE + '/:id',
         Component: BookPage
     },
+
 ]

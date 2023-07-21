@@ -20,6 +20,7 @@ const BookItem = ({ book }) => {
         flexDirection: "column",
         alignItems: "center",
         position: "relative",
+        marginTop:"10px"
       }}
     >
       <div

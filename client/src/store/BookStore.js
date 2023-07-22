@@ -4,7 +4,9 @@ export default class BookStore{
         this._types =[
             {id: 1, name: 'Художня'},
             {id: 2, name: 'Фантастика'},
-            {id: 3, name: 'Фентезі'}
+            {id: 3, name: 'Фентезі'},
+            {id: 4, name: 'Романтика'}
+
 
 
         ]

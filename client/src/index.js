@@ -6,13 +6,15 @@ import UserStore from './store/Userstore';
 import BookStore from './store/BookStore';
 
 export const Context = createContext(null);
+console.log("API URL:", process.env.REACT_APP_API_URL);
 
-ReactDOM.render(
+const rootElement = document.getElementById('root');
+const root = ReactDOM.createRoot(rootElement);
+root.render(
   <Context.Provider value={{ 
     user: new UserStore(),
     book: new BookStore(), 
   }}>
     <App />
-  </Context.Provider>,
-  document.getElementById('root')
+  </Context.Provider>
 );

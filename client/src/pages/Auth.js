@@ -1,24 +1,43 @@
-import React, { useState } from 'react';
-import { LOGIN_ROUTE, REGISTRATION_ROUTE } from '../utils/consts';
-import { useLocation, NavLink } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE } from '../utils/consts';
+import { useLocation, NavLink,useNavigate  } from 'react-router-dom';
+import { registration, login } from '../http/userApi';
+import { observer } from 'mobx-react-lite';
+import { Context } from '../index'; 
 
-const Auth = () => {
+const Auth = observer(() => {
+  const {user} = useContext(Context)
   const location = useLocation();
+  const navigate = useNavigate(); 
+
   const isLogin = location.pathname === LOGIN_ROUTE;
 
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    console.log('Username:', username);
+    console.log('Email:', email);
     console.log('Password:', password);
-
-    setUsername('');
+    setEmail('');
     setPassword('');
   };
-
+  const handleClick = async () => {
+    let data;
+    try {
+      if (isLogin) {
+        data = await login(email, password); // Use email and password as arguments for login function
+      } else {
+        data = await registration(email, password); // Use email and password as arguments for registration function
+      }
+      user.setUser(data); // Assuming the data returned from the API contains user information
+      user.setIsAuth(true);
+      navigate(SHOP_ROUTE);
+    } catch (error) {
+      alert(error.response.data.message)
+    }
+  };
+  
   const authContainerStyle = {
     display: 'flex',
     justifyContent: 'center',
@@ -77,23 +96,22 @@ const Auth = () => {
     color: '#007bff',
     textDecoration: 'none',
   };
-
   return (
     <div style={authContainerStyle}>
       <div style={authFormStyle}>
         <h2 style={headingStyle}>{isLogin ? 'Login' : 'Registration'}</h2>
         <form onSubmit={handleSubmit}>
           <div style={formGroupStyle}>
-            <label htmlFor="username" style={labelStyle}>
-              Username:
+            <label htmlFor="email" style={labelStyle}>
+              Email:
             </label>
             <input
               type="text"
-              id="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               style={inputStyle}
-              placeholder="Enter your username"
+              placeholder="Enter your email"
             />
           </div>
           <div style={formGroupStyle}>
@@ -111,9 +129,10 @@ const Auth = () => {
           </div>
           <button
             type="submit"
-            style={{ ...buttonStyle }}
-            onMouseEnter={(e) => e.target.style.backgroundColor = '#FFC554'}
-            onMouseLeave={(e) => e.target.style.backgroundColor = '#FAA90C'}
+            onClick={handleClick}
+            style={buttonStyle}
+            onMouseEnter={(e) => (e.target.style.backgroundColor = '#FFC554')}
+            onMouseLeave={(e) => (e.target.style.backgroundColor = '#FAA90C')}
           >
             {isLogin ? 'Sign in' : 'Register'}
           </button>
@@ -132,6 +151,6 @@ const Auth = () => {
       </div>
     </div>
   );
-};
+});
 
 export default Auth;

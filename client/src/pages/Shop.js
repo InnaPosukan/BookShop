@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import TypeBar from '../components/TypeBar';
 import BookList from '../components/BookList';
 import { useNavigate } from 'react-router-dom';
 import { ADMIN_ROUTE } from '../utils/consts';
+import { observer } from 'mobx-react-lite';
+import { Context } from '..';
+import { fetchTypes } from '../http/bookApi';
 // import UserStore from '../store/Userstore';
 
-const Shop = () => {
+const Shop = observer (() => {
+  const {book} = useContext(Context)
+  useEffect(() =>{
+    fetchTypes().then(data => book.setTypes(data))
+
+  },[])
   const navigate = useNavigate();
   // const userStore = new UserStore(); 
   const isAdmin = true; 
@@ -68,6 +76,6 @@ const Shop = () => {
       </div>
     </div>
   );
-};
+});
 
 export default Shop;

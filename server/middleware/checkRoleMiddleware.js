@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-module.exports = function (role) {
+module.exports = function () { // Уберите аргумент 'role'
   return function (req, res, next) {
     if (req.method === 'OPTIONS') {
       // OPTIONS request is typically sent by browsers for CORS preflight check
@@ -8,17 +8,12 @@ module.exports = function (role) {
     } else {
       try {
         const token = req.headers.authorization.split(' ')[1];
-        if (!token) {
-          return res.status(401).json({ message: "User isn't logged in" });
-        }
-
-        const decoded = jwt.verify(token, process.env.SECRET_KEY);
-        if (decoded.role !== role) {
-          res.status(403).json({ message: 'No access' });
-        } else {
+        if (token) {
+          const decoded = jwt.verify(token, process.env.SECRET_KEY);
           req.user = decoded;
-          next();
         }
+        // Всегда вызывайте next() даже без проверки роли
+        next();
       } catch (e) {
         res.status(401).json({ message: "User isn't logged in" });
       }

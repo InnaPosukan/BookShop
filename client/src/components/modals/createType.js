@@ -1,6 +1,21 @@
-import React from "react";
+import React, {useState} from "react";
+import { createType, fetchTypes } from "../../http/bookApi";
 
 const CreateType = ({ show, onHide }) => {
+  const [value, setValue] = useState('')
+
+  const addType = async () => {
+    try {
+      await createType({ name: value });
+      setValue('');
+      onHide();
+      fetchTypes();
+    } catch (error) {
+      console.error('Error saving data:', error);
+    }
+  };
+  
+  
   const modalStyles = {
     position: "fixed",
     top: 0,
@@ -46,6 +61,8 @@ const CreateType = ({ show, onHide }) => {
           <input
             type="text"
             placeholder="Input type"
+            value={value}
+            onChange={e => setValue(e.target.value)}
             style={{
               padding: "8px",
               width: "100%",
@@ -64,7 +81,7 @@ const CreateType = ({ show, onHide }) => {
           >
             Close
           </button>
-          <button type="button" className="btn btn-primary" onClick={onHide}>
+          <button type="button" className="btn btn-primary" onClick={addType}>
             Save changes
           </button>
         </div>

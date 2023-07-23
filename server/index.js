@@ -10,6 +10,8 @@ const router = require('./routes/index')
 const errorHandler = require('./middleware/ErrorHandlingMiddleware')
 const path = require('path');
 const userRouter = require('./routes/userRouter');
+const typeRouter = require('./routes/typeRouter');
+
 
 const app = express()
 app.use(cors())
@@ -17,6 +19,8 @@ app.use(express.json())
 app.use(express.static(path.resolve(__dirname, 'static')))
 app.use(fileUpload({}))
 app.use('/api/user', userRouter);
+app.use('/api/type', typeRouter);
+
 app.use(errorHandler)
 const start = async () => {
     try {

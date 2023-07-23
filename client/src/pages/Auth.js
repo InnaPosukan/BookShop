@@ -26,15 +26,21 @@ const Auth = observer(() => {
     let data;
     try {
       if (isLogin) {
-        data = await login(email, password); // Use email and password as arguments for login function
+        data = await login(email, password);
       } else {
-        data = await registration(email, password); // Use email and password as arguments for registration function
+        data = await registration(email, password);
       }
-      user.setUser(data); // Assuming the data returned from the API contains user information
+      user.setUser(data);
       user.setIsAuth(true);
       navigate(SHOP_ROUTE);
     } catch (error) {
-      alert(error.response.data.message)
+      if (error.response && error.response.data && error.response.data.message) {
+        // If the error response exists and has the 'data' property with 'message'
+        alert(error.response.data.message);
+      } else {
+        // Handle other types of errors or cases where the response structure is unexpected
+        alert('An error occurred. Please try again later.');
+      }
     }
   };
   

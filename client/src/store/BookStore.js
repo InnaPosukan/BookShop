@@ -2,13 +2,7 @@ import{makeAutoObservable} from "mobx"
 export default class BookStore{
     constructor(){
         this._types =[
-            {id: 1, name: 'Художня'},
-            {id: 2, name: 'Фантастика'},
-            {id: 3, name: 'Фентезі'},
-            {id: 4, name: 'Романтика'}
-
-
-
+          
         ]
         this._books = [
             {id: 1, name: "После", price: 150, rating: 5 },

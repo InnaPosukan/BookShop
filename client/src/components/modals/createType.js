@@ -11,60 +11,73 @@ const CreateType = ({ show, onHide }) => {
     display: show ? "flex" : "none",
     justifyContent: "center",
     alignItems: "center",
-    zIndex: 9999, 
+    zIndex: 9999,
   };
 
   const modalContentStyles = {
-    backgroundColor: "#f9f9f9",
-    padding: "20px",
+    backgroundColor: "#fff",
+    padding: "30px",
     borderRadius: "8px",
     boxShadow: "0 2px 6px rgba(0, 0, 0, 0.2)",
-    maxWidth: "400px", 
-  };
-
-  const closeButtonStyles = {
-    position: "absolute",
-    top: "10px",
-    right: "10px",
-    fontSize: "24px",
-    cursor: "pointer",
+    maxWidth: "314px",
+    width: "80%",
+    maxHeight: "240px"
   };
 
   const centerTextStyle = {
     marginBottom: "15px",
-    textAlign: "center", 
+    textAlign: "center",
+    color: "#333",
+    fontSize: "18px",
+  };
+
+  const inputStyles = {
+    padding: "12px",
+    width: "100%",
+    border: "2px solid #ccc",
+    borderRadius: "8px",
+    marginBottom: "15px",
+    fontSize: "16px",
+    outline: "none",
+  };
+
+  const buttonStyles = {
+    padding: "12px 20px",
+    borderRadius: "8px",
+    cursor: "pointer",
+    fontSize: "16px",
+    fontWeight: "bold",
+    textTransform: "none",
+    marginRight: "10px",
+    border: "none", // Remove button border
   };
 
   return (
     <div style={modalStyles}>
       <div style={modalContentStyles}>
-        <div style={closeButtonStyles} onClick={onHide}>
-          &times;
-        </div>
         <h5 style={centerTextStyle}>Add new type</h5>
         <div>
           <input
             type="text"
             placeholder="Input type"
-            style={{
-              padding: "8px",
-              width: "100%",
-              border: "1px solid #ccc",
-              borderRadius: "4px",
-              marginBottom: "15px",
-            }}
+            style={inputStyles}
           />
         </div>
         <div style={{ display: "flex", justifyContent: "flex-end" }}>
           <button
             type="button"
             className="btn btn-secondary"
-            style={{ marginRight: "10px" }}
+            style={{ ...buttonStyles, backgroundColor: "#eee", color: "#333" }}
             onClick={onHide}
           >
-            Close
+            Cancel
           </button>
-          <button type="button" className="btn btn-primary" onClick={onHide}>
+          <button
+            type="button"
+            className="btn btn-primary"
+            style={{ ...buttonStyles, backgroundColor: "#FFA500", color: "#fff" }} // Updated to orange (#FFA500)
+            onClick={onHide}
+          >
             Save changes
           </button>
         </div>

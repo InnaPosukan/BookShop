@@ -34,7 +34,11 @@ const Auth = observer(() => {
       user.setIsAuth(true);
       navigate(SHOP_ROUTE);
     } catch (error) {
-      alert(error.response.data.message)
+      if (error && error.response && error.response.data && error.response.data.message) {
+        alert(error.response.data.message);
+      } else {
+        alert('An error occurred.');
+      }
     }
   };
   
@@ -91,7 +95,6 @@ const Auth = observer(() => {
     textAlign: 'center',
     marginTop: '20px',
   };
-
   const linkStyle = {
     color: '#007bff',
     textDecoration: 'none',

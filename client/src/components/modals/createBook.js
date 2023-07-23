@@ -60,7 +60,7 @@ const CreateBook = ({ show, onHide }) => {
     fontSize: "16px",
     borderRadius: "5px",
     border: "1px solid #ccc",
-    marginBottom: "20px",
+    marginBottom: "30px",
   };
 
   const addInfoButtonStyles = {

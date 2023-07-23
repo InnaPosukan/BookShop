@@ -35,14 +35,6 @@ const CreateType = ({ show, onHide }) => {
     maxWidth: "400px",
   };
 
-  const closeButtonStyles = {
-    position: "absolute",
-    top: "10px",
-    right: "10px",
-    fontSize: "24px",
-    cursor: "pointer",
-  };
-
   const centerTextStyle = {
     marginBottom: "15px",
     textAlign: "center",
@@ -64,15 +56,14 @@ const CreateType = ({ show, onHide }) => {
     fontSize: "16px",
     textTransform: "none",
     marginRight: "10px",
-    border: "none", // Remove button border
+    border: "none",
+    backgroundColor: "#6C757D",
+    color: "#fff", // Set text color to white
   };
 
   return (
     <div style={modalStyles}>
       <div style={{ ...modalContentStyles, ...{ maxHeight: "240px" } }}>
-        <div style={closeButtonStyles} onClick={onHide}>
-          &times;
-        </div>
         <h5 style={{ ...centerTextStyle, ...{ color: "#333", fontSize: "18px" } }}>
           Add new type
         </h5>
@@ -89,7 +80,7 @@ const CreateType = ({ show, onHide }) => {
           <button
             type="button"
             className="btn btn-secondary"
-            style={{ ...buttonStyles, ...{ backgroundColor: "#eee", color: "#333" } }}
+            style={{ ...buttonStyles, ...{ backgroundColor: "#6C757D", color: "#fff" } }}
             onClick={onHide}
           >
             Cancel
@@ -97,7 +88,7 @@ const CreateType = ({ show, onHide }) => {
           <button
             type="button"
             className="btn btn-primary"
-            style={{ ...buttonStyles, ...{ backgroundColor: "#FFA500", color: "#fff" } }} // Updated to orange (#FFA500)
+            style={{ ...buttonStyles, ...{ backgroundColor: "#FFA500" } }} // Updated to orange (#FFA500)
             onClick={addType}
           >
             Save changes

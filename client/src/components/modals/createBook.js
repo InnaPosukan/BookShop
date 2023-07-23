@@ -38,10 +38,12 @@ const CreateBook = observer(({ show, onHide }) => {
   const closeButtonStyles = {
     position: "absolute",
     bottom: "10px",
-    right: "10px",
+    right: "125px",
     fontSize: "24px",
     cursor: "pointer",
     color: "#666",
+    backgroundColor: "#6C757D"
+    
   };
 
   const centerTextStyle = {
@@ -230,7 +232,7 @@ formData.append('typeId', selectedType.id);
           <button
             type="button"
             className="btn btn-secondary"
-            style={{ marginRight: "10px" }}
+            style={{ marginRight: "185px" }}
             onClick={onHide}
           >
             Close
@@ -241,7 +243,7 @@ formData.append('typeId', selectedType.id);
             style={saveButtonStyles}
             onClick={addBook}
           >
-            Save Changes
+            Save 
           </button>
         </div>
       </div>

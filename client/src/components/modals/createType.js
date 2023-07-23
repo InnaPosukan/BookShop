@@ -1,8 +1,9 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { createType } from "../../http/bookApi";
 
 const CreateType = ({ show, onHide }) => {
-  const [value, setValue] = useState('')
+  const [value, setValue] = useState('');
+
   const addType = async () => {
     try {
       await createType({ name: value });
@@ -12,8 +13,7 @@ const CreateType = ({ show, onHide }) => {
       console.error('Error saving data:', error);
     }
   };
-  
-  
+
   const modalStyles = {
     position: "fixed",
     top: 0,
@@ -24,7 +24,7 @@ const CreateType = ({ show, onHide }) => {
     display: show ? "flex" : "none",
     justifyContent: "center",
     alignItems: "center",
-    zIndex: 9999, 
+    zIndex: 9999,
   };
 
   const modalContentStyles = {
@@ -32,7 +32,7 @@ const CreateType = ({ show, onHide }) => {
     padding: "20px",
     borderRadius: "8px",
     boxShadow: "0 2px 6px rgba(0, 0, 0, 0.2)",
-    maxWidth: "400px", 
+    maxWidth: "400px",
   };
 
   const closeButtonStyles = {
@@ -45,41 +45,61 @@ const CreateType = ({ show, onHide }) => {
 
   const centerTextStyle = {
     marginBottom: "15px",
-    textAlign: "center", 
+    textAlign: "center",
+  };
+
+  const inputStyles = {
+    padding: "8px",
+    width: "100%",
+    border: "1px solid #ccc",
+    borderRadius: "4px",
+    marginBottom: "15px",
+    fontSize: "16px",
+  };
+
+  const buttonStyles = {
+    padding: "12px 20px",
+    borderRadius: "8px",
+    cursor: "pointer",
+    fontSize: "16px",
+    textTransform: "none",
+    marginRight: "10px",
+    border: "none", // Remove button border
   };
 
   return (
     <div style={modalStyles}>
-      <div style={modalContentStyles}>
+      <div style={{ ...modalContentStyles, ...{ maxHeight: "240px" } }}>
         <div style={closeButtonStyles} onClick={onHide}>
           &times;
         </div>
-        <h5 style={centerTextStyle}>Add new type</h5>
+        <h5 style={{ ...centerTextStyle, ...{ color: "#333", fontSize: "18px" } }}>
+          Add new type
+        </h5>
         <div>
           <input
             type="text"
             placeholder="Input type"
             value={value}
-            onChange={e => setValue(e.target.value)}
-            style={{
-              padding: "8px",
-              width: "100%",
-              border: "1px solid #ccc",
-              borderRadius: "4px",
-              marginBottom: "15px",
-            }}
+            onChange={(e) => setValue(e.target.value)}
+            style={inputStyles}
           />
         </div>
         <div style={{ display: "flex", justifyContent: "flex-end" }}>
           <button
             type="button"
             className="btn btn-secondary"
-            style={{ marginRight: "10px" }}
+            style={{ ...buttonStyles, ...{ backgroundColor: "#eee", color: "#333" } }}
             onClick={onHide}
           >
-            Close
+            Cancel
           </button>
-          <button type="button" className="btn btn-primary" onClick={addType}>
+          <button
+            type="button"
+            className="btn btn-primary"
+            style={{ ...buttonStyles, ...{ backgroundColor: "#FFA500", color: "#fff" } }} // Updated to orange (#FFA500)
+            onClick={addType}
+          >
             Save changes
           </button>
         </div>

@@ -5,19 +5,18 @@ import { useNavigate } from 'react-router-dom';
 import { ADMIN_ROUTE } from '../utils/consts';
 import { observer } from 'mobx-react-lite';
 import { Context } from '..';
-import { fetchTypes } from '../http/bookApi';
-// import UserStore from '../store/Userstore';
+import { fetchBooks, fetchTypes } from '../http/bookApi';
 
 const Shop = observer (() => {
   const {book} = useContext(Context)
   useEffect(() =>{
     fetchTypes().then(data => book.setTypes(data))
+    fetchBooks().then(data => book.setBooks(data.rows))
+
 
   },[])
   const navigate = useNavigate();
-  // const userStore = new UserStore(); 
   const isAdmin = true; 
-  // const isAuth = userStore.isAuth;
 
   const handleAdminClick = () => {
     console.log('Navigating to admin route...');

@@ -5,16 +5,7 @@ export default class BookStore{
           
         ]
         this._books = [
-            {id: 1, name: "После", price: 150, rating: 5 },
-            {id: 2, name: "После", price: 150, rating: 5 },
-            {id: 3, name: "После", price: 150, rating: 5 },
-            {id: 4, name: "После", price: 150, rating: 5 },
-            {id: 5, name: "После", price: 150, rating:4 },
-            {id: 6, name: "После", price: 150, rating: 5 },
-            {id: 7, name: "После", price: 150, rating: 5 }
-
-
-
+     
         ]
         this._selectedType ={
 

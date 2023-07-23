@@ -11,6 +11,7 @@ const errorHandler = require('./middleware/ErrorHandlingMiddleware')
 const path = require('path');
 const userRouter = require('./routes/userRouter');
 const typeRouter = require('./routes/typeRouter');
+const BookRouter = require('./routes/BookRouter');
 
 
 const app = express()
@@ -20,6 +21,7 @@ app.use(express.static(path.resolve(__dirname, 'static')))
 app.use(fileUpload({}))
 app.use('/api/user', userRouter);
 app.use('/api/type', typeRouter);
+app.use('/api/book', BookRouter);
 
 app.use(errorHandler)
 const start = async () => {

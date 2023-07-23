@@ -20,11 +20,11 @@ const BookItem = ({ book }) => {
         flexDirection: "column",
         alignItems: "center",
         position: "relative",
-        marginTop:"10px"
+        marginTop: "10px"
       }}
     >
       <div
-        style={{ 
+        style={{
           width: 220,
           height: 200,
           cursor: "pointer",
@@ -35,7 +35,7 @@ const BookItem = ({ book }) => {
       >
         <img
           style={{ width: "100%", height: "100%", objectFit: "cover" }}
-          src={book.img}
+          src={process.env.REACT_APP_API_URL + book.img}
           alt={book.title}
         />
       </div>
@@ -47,15 +47,14 @@ const BookItem = ({ book }) => {
           marginTop: "5px",
         }}
       >
-          <div style={{ marginTop: "5px" }}>
-        kldmls
-      </div>
-        <div style={{ fontWeight: "bold" }}>{book.title}</div>
+        <div style={{ marginTop: "5px" }}>
+          {book.name} 
+        </div>
+        <div style={{ fontWeight: "bold" }}>{book.author}</div>
         <div style={{ marginLeft: "-10px" }}>
           {book.rating}
         </div>
       </div>
-    
     </div>
   );
 };

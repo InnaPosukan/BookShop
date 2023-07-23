@@ -1,14 +1,19 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
+import { createBook, fetchBooks, fetchTypes } from "../../http/bookApi";
+import { observer } from "mobx-react-lite";
 import { Context } from "../..";
 
-const CreateBook = ({ show, onHide }) => {
+const CreateBook = observer(({ show, onHide }) => {
   const { book } = useContext(Context);
-  const [selectedType, setSelectedType] = useState(null);
   const [bookName, setBookName] = useState("");
   const [bookPrice, setBookPrice] = useState("");
-  const [bookCover, setBookCover] = useState(null);
+  const [file, setFile] = useState(null);
   const [info, setInfo] = useState([]);
-
+  const selectedType = book.selectedType;
+  useEffect(() => {
+    fetchTypes().then(data => book.setTypes(data));
+    fetchBooks().then(data => book.setBooks(data.rows));
+  }, []);
   const modalStyles = {
     position: "fixed",
     top: 0,
@@ -87,25 +92,27 @@ const CreateBook = ({ show, onHide }) => {
   };
 
   const handleTypeChange = (event) => {
-    setSelectedType(event.target.value);
+    const selectedTypeName = event.target.value;
+    const selectedTypeObj = book.types.find(type => type.name === selectedTypeName);
+    book.setSelectedType(selectedTypeObj);
   };
+    const selectFile = (e) => {
+      setFile(e.target.files[0]);
+    };
+  const addBook = () => {
+    if (selectedType) {
+      const formData = new FormData();
+      formData.append('name', bookName);
+      formData.append('price', `${bookPrice}`);
+      formData.append('img', file);
+formData.append('typeId', selectedType.id);
+      formData.append('info', JSON.stringify(info));
 
-  const handleBookNameChange = (event) => {
-    setBookName(event.target.value);
-  };
-
-  const handleBookPriceChange = (event) => {
-    const numericRegex = /^[0-9]*$/;
-    if (numericRegex.test(event.target.value) || event.target.value === "") {
-      setBookPrice(event.target.value);
+      createBook(formData).then(data => onHide());
+    } else {
+      console.error('Selected type is null.');
     }
   };
-
-  const handleBookCoverChange = (event) => {
-    const file = event.target.files[0];
-    setBookCover(file);
-  };
-
   const addInfo = () => {
     setInfo([...info, { title: "", description: "", number: Date.now() }]);
   };
@@ -134,7 +141,7 @@ const CreateBook = ({ show, onHide }) => {
   };
 
   const scrollableContainerStyles = {
-    maxHeight: "80vh", // Adjust this value as needed to control the maximum height of the scrollable area
+    maxHeight: "80vh", 
     overflowY: "auto",
     padding: "0 10px",
   };
@@ -150,13 +157,14 @@ const CreateBook = ({ show, onHide }) => {
         <div style={{ marginBottom: "20px" }}>
           {book.types.map((type) => (
             <label key={type.id} style={{ marginRight: "10px" }}>
-              <input
-                type="radio"
-                name="type"
-                value={type.name}
-                checked={selectedType === type.name}
-                onChange={handleTypeChange}
-              />
+           <input
+            type="radio"
+             name="type"
+             value={type.name}
+            checked={selectedType && selectedType.id === type.id}
+           onChange={handleTypeChange}
+            />
+
               {type.name}
             </label>
           ))}
@@ -165,7 +173,7 @@ const CreateBook = ({ show, onHide }) => {
         <input
           type="text"
           value={bookName}
-          onChange={handleBookNameChange}
+          onChange={e => setBookName(e.target.value)}
           placeholder="Enter book name"
           style={inputStyles}
         />
@@ -173,7 +181,7 @@ const CreateBook = ({ show, onHide }) => {
         <input
           type="text"
           value={bookPrice}
-          onChange={handleBookPriceChange}
+          onChange={e => setBookPrice(Number(e.target.value))}
           pattern="[0-9]*"
           placeholder="Enter book price"
           style={inputStyles}
@@ -182,7 +190,7 @@ const CreateBook = ({ show, onHide }) => {
         <input
           type="file"
           accept="image/*"
-          onChange={handleBookCoverChange}
+          onChange={selectFile}
           style={inputStyles}
         />
         <hr />
@@ -231,7 +239,7 @@ const CreateBook = ({ show, onHide }) => {
             type="button"
             className="btn btn-primary"
             style={saveButtonStyles}
-            onClick={onHide}
+            onClick={addBook}
           >
             Save Changes
           </button>
@@ -239,6 +247,7 @@ const CreateBook = ({ show, onHide }) => {
       </div>
     </div>
   );
-};
+  
+});
 
 export default CreateBook;

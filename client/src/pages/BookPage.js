@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import book1 from '../assets/book1.jpg';
-
+import {useParams} from 'react-router-dom'
+import { fetchOneBook } from '../http/bookApi';
 const BookPage = () => {
   const [isMobileView, setIsMobileView] = useState(false);
+const [book, setBook] = useState ({info:[]})
+const imageSrc = process.env.REACT_APP_API_URL + book.img;
 
-  const book = { id: 1, name: "После", author: "Анна Скотт", price: 150, rating: 5, img: book1 };
-  const description = [
-    { id: 1, title: 'Кількість сторінок', description: '250' },
-    { id: 2, title: 'Рік написання', description: '2018' },
-    { id: 3, title: 'Жанр', description: 'Фантастика' },
-  ];
-
+const {id} = useParams()
+const params = useParams(
+  console.log(params)
+)
+useEffect(() =>{
+fetchOneBook(id).then(data => setBook(data))
+}, [])
   useEffect(() => {
     const handleResize = () => {
       const isMobile = window.matchMedia("(max-width: 768px)").matches;
@@ -44,7 +47,7 @@ const BookPage = () => {
           borderRadius: "8px",
           padding: "20px",
           boxSizing: "border-box",
-          border: "1px solid #ddd", // Add border here for mobile view
+          border: "1px solid #ddd", 
         }}>
           <img
             style={{
@@ -52,7 +55,7 @@ const BookPage = () => {
               height: "auto",
               borderRadius: "8px"
             }}
-            src={book.img}
+            src={imageSrc}
             alt={book.name}
           />
 
@@ -62,7 +65,6 @@ const BookPage = () => {
             color: "#333"
           }}>
             <h2 style={{ fontSize: "30px", fontWeight: "700", marginTop: "20px" }}>{book.name}</h2>
-            <p style={{ fontSize: "10px", margin: "0" }}>{book.author}</p>
             <p style={{ fontSize: "20px", marginTop: "20px", display: "block" }}>
               Price: {book.price} грн
             </p>
@@ -87,7 +89,7 @@ const BookPage = () => {
             {/* Table for the description in mobile view */}
             <table style={{ fontSize: "18px", marginTop: "10px", width: "100%", borderCollapse: "collapse" }}>
               <tbody>
-                {description.map((item) => (
+                {book.info.map((item) => (
                   <tr key={item.id}>
                     <td style={{ padding: "8px", fontSize: "16px", border: "1px solid #ddd" }}>{item.title}:</td>
                     <td style={{ padding: "8px", fontSize: "16px", border: "1px solid #ddd" }}>{item.description}</td>
@@ -116,7 +118,7 @@ const BookPage = () => {
                 height: "auto",
                 borderRadius: "8px"
               }}
-              src={book.img}
+              src={imageSrc}
               alt={book.name}
             />
             <div className="info-class" style={{
@@ -128,7 +130,6 @@ const BookPage = () => {
             }}>
                <div style={{ border: "1px solid #ddd", padding: "20px", borderRadius: "8px" }}>
                 <h2 style={{ fontSize: "35px", fontWeight: "700", marginBottom: "0" }}>{book.name}</h2>
-                <p style={{ fontSize: "15px", margin: "10px 0" }}>Автор: {book.author}</p>
                 <p style={{ fontSize: "25px", margin: "51px 0", display: "block" }}>
                   Ціна: {book.price} грн
                 </p>
@@ -152,7 +153,7 @@ const BookPage = () => {
           </p>
           <table style={{ fontSize: "18px", marginTop: "10px", width: "100%",borderCollapse: "collapse" }}>
             <tbody>
-              {description.map((item) => (
+              {book.info.map((item) => (
                 <tr key={item.id}>
                   <td style={{ padding: "8px",  fontSize: "16px", border: "1px solid #ddd" }}>{item.title}:</td>
                   <td style={{ padding: "8px", fontSize: "16px", border: "1px solid #ddd" }}>{item.description}</td>

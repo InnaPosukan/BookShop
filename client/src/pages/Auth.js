@@ -34,12 +34,10 @@ const Auth = observer(() => {
       user.setIsAuth(true);
       navigate(SHOP_ROUTE);
     } catch (error) {
-      if (error.response && error.response.data && error.response.data.message) {
-        // If the error response exists and has the 'data' property with 'message'
+      if (error && error.response && error.response.data && error.response.data.message) {
         alert(error.response.data.message);
       } else {
-        // Handle other types of errors or cases where the response structure is unexpected
-        alert('An error occurred. Please try again later.');
+        alert('An error occurred.');
       }
     }
   };
@@ -97,7 +95,6 @@ const Auth = observer(() => {
     textAlign: 'center',
     marginTop: '20px',
   };
-
   const linkStyle = {
     color: '#007bff',
     textDecoration: 'none',

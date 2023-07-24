@@ -80,13 +80,9 @@ fetchOneBook(id).then(data => setBook(data))
             }}>
               Add to Cart
             </button>
-
-            {/* Book description for mobile view */}
             <p style={{ fontSize: "16px", marginTop: "20px" }}>
               Детальна інформація про книгу
             </p>
-            
-            {/* Table for the description in mobile view */}
             <table style={{ fontSize: "18px", marginTop: "10px", width: "100%", borderCollapse: "collapse" }}>
               <tbody>
                 {book.info.map((item) => (
@@ -167,4 +163,4 @@ fetchOneBook(id).then(data => setBook(data))
   );
 };
 
-export default BookPage; 
+export default BookPage;

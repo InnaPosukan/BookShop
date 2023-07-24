@@ -5,10 +5,6 @@ import Navbar from './components/NavBar';
 import Footer from './components/Footer';
 import { observer } from 'mobx-react-lite';
 
-
-
-
-
 const App =observer(() => {
   return(
     <BrowserRouter> 

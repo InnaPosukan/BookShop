@@ -1,54 +1,75 @@
-import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { observer } from 'mobx-react';
-import { Context } from '../index';
-import logo from '../assets/logo.png';
+import React, { useEffect } from 'react';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import './NavBar.css';
 
-const Navbar = observer(() => {
-  const { user } = useContext(Context);
-  const [basketHover, setBasketHover] = useState(false);
+const NavBar = () => {
+  useEffect(() => {
+    const searchForm = document.querySelector('.search-form');
 
-  const handleBasketHover = () => {
-    setBasketHover(!basketHover);
+    document.querySelector('#search-btn').onclick = () => {
+      searchForm.classList.toggle('active');
+    };
+
+    const handleScroll = () => {
+      searchForm.classList.remove('active');
+
+      if (window.scrollY > 80) {
+        document.querySelector('.header .header-2').classList.add('active');
+      } else {
+        document.querySelector('.header .header-2').classList.remove('active');
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+    
+  }, []);
+  
+  const handleLoginClick = () => {
+    window.location.href = '/login'; 
   };
-const logOut = () =>{
-  user.setUser({})
-  user.setIsAuth(false)
-}
-  const basketButtonStyle = {
-    backgroundColor: basketHover ? '#FFC554' : '#FAA90C',
-    marginRight: '10px',
-    transition: 'background-color 0.3s',
-    width: '70px',
-  };
 
+ 
   return (
-    <nav className="navbar navbar-expand-md bg-body-tertiary shadow-sm">
-      <div className="container-fluid">
-        <Link className="navbar-brand d-flex align-items-center" to="/" style={{ marginLeft: '-10px', padding: '0 30px' }}>
-          <img src={logo} alt="Logo" className="d-inline-block align-text-top" style={{ transition: 'transform 0.3s' }} />
-          <span className="ms-2" style={{ fontSize: '19px', transition: 'color 0.3s' }}>BookShop</span>
-        </Link>
-
-        <div className="d-flex">
-          <Link to="/shop" className="btn" style={basketButtonStyle} onMouseEnter={handleBasketHover} onMouseLeave={handleBasketHover}>
-            Shop
-          </Link>
+    <div>
+      <header className="header">
+        <div className="header-1">
+          <a href="/" className="logo"> 
+            <i className="fas fa-book"></i> BookShop
+          </a>
+          <form action="" className="search-form">
+            <input type="search" name="search-box" id="search-box" placeholder="Search..." />
+            <label htmlFor="search-box" className="fas fa-search"></label>
+          </form>
+          <div className="icons">
+            <div id="search-btn" className="fas fa-search"></div>
+            <a href="#" className="fas fa-shopping-cart"></a>
+            <a href="#" className="fas fa-heart"></a>
+            <div id="login-btn" className="fas fa-user"onClick={handleLoginClick}></div>
+          </div>
         </div>
-        <div className="d-flex">
-          {user.isAuth ? (
-            <button className="btn" style={basketButtonStyle} onClick={() => logOut()}>
-              Log out
-            </button>
-          ) : (
-            <Link to="/login" className="btn" style={basketButtonStyle} onMouseEnter={handleBasketHover} onMouseLeave={handleBasketHover}>
-              Login
-            </Link>
-          )}
+        <div className="header-2">
+          <nav className="navbar">
+            <a href="/">home</a>
+            <a href="/shop">shop</a>
+            <a href="#reviews">reviews</a>
+            <a href="#contact">contact</a>
+          </nav>
         </div>
-      </div>
-    </nav>
+      </header>
+      <nav className="bottom-navbar">
+        <nav className="navbar">
+          <a href="/" class="fas fa-home"></a> {/* Update the href here */}
+          <a href="/shop" class="fas fa-shop"></a>
+          <a href="#reviews" class="fas fa-comments"></a>
+          <a href="#contact" class="fas fa-blog"></a>
+        </nav>
+      </nav>
+    </div>
   );
-});
+};
 
-export default Navbar;
+export default NavBar;

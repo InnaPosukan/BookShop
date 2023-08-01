@@ -11,8 +11,8 @@ const CreateBook = observer(({ show, onHide }) => {
   const [info, setInfo] = useState([]);
   const selectedType = book.selectedType;
   useEffect(() => {
-    fetchTypes().then(data => book.setTypes(data));
-    fetchBooks().then(data => book.setBooks(data.rows));
+    fetchTypes().then((data) => book.setTypes(data));
+    fetchBooks().then((data) => book.setBooks(data.rows));
   }, []);
   const modalStyles = {
     position: "fixed",
@@ -32,7 +32,7 @@ const CreateBook = observer(({ show, onHide }) => {
     padding: "30px",
     borderRadius: "10px",
     boxShadow: "0 2px 6px rgba(0, 0, 0, 0.2)",
-    maxWidth: "500px",
+    maxWidth: "400px",
   };
 
   const closeButtonStyles = {
@@ -42,8 +42,7 @@ const CreateBook = observer(({ show, onHide }) => {
     fontSize: "24px",
     cursor: "pointer",
     color: "#666",
-    backgroundColor: "#6C757D"
-    
+    backgroundColor: "#6C757D",
   };
 
   const centerTextStyle = {
@@ -95,24 +94,24 @@ const CreateBook = observer(({ show, onHide }) => {
 
   const handleTypeChange = (event) => {
     const selectedTypeName = event.target.value;
-    const selectedTypeObj = book.types.find(type => type.name === selectedTypeName);
+    const selectedTypeObj = book.types.find((type) => type.name === selectedTypeName);
     book.setSelectedType(selectedTypeObj);
   };
-    const selectFile = (e) => {
-      setFile(e.target.files[0]);
-    };
+  const selectFile = (e) => {
+    setFile(e.target.files[0]);
+  };
   const addBook = () => {
     if (selectedType) {
       const formData = new FormData();
-      formData.append('name', bookName);
-      formData.append('price', `${bookPrice}`);
-      formData.append('img', file);
-formData.append('typeId', selectedType.id);
-      formData.append('info', JSON.stringify(info));
+      formData.append("name", bookName);
+      formData.append("price", `${bookPrice}`);
+      formData.append("img", file);
+      formData.append("typeId", selectedType.id);
+      formData.append("info", JSON.stringify(info));
 
-      createBook(formData).then(data => onHide());
+      createBook(formData).then((data) => onHide());
     } else {
-      console.error('Selected type is null.');
+      console.error("Selected type is null.");
     }
   };
   const addInfo = () => {
@@ -143,7 +142,7 @@ formData.append('typeId', selectedType.id);
   };
 
   const scrollableContainerStyles = {
-    maxHeight: "80vh", 
+    maxHeight: "80vh",
     overflowY: "auto",
     padding: "0 10px",
   };
@@ -159,13 +158,13 @@ formData.append('typeId', selectedType.id);
         <div style={{ marginBottom: "20px" }}>
           {book.types.map((type) => (
             <label key={type.id} style={{ marginRight: "10px" }}>
-           <input
-            type="radio"
-             name="type"
-             value={type.name}
-            checked={selectedType && selectedType.id === type.id}
-           onChange={handleTypeChange}
-            />
+              <input
+                type="radio"
+                name="type"
+                value={type.name}
+                checked={selectedType && selectedType.id === type.id}
+                onChange={handleTypeChange}
+              />
 
               {type.name}
             </label>
@@ -175,7 +174,7 @@ formData.append('typeId', selectedType.id);
         <input
           type="text"
           value={bookName}
-          onChange={e => setBookName(e.target.value)}
+          onChange={(e) => setBookName(e.target.value)}
           placeholder="Enter book name"
           style={inputStyles}
         />
@@ -183,18 +182,13 @@ formData.append('typeId', selectedType.id);
         <input
           type="text"
           value={bookPrice}
-          onChange={e => setBookPrice(Number(e.target.value))}
+          onChange={(e) => setBookPrice(Number(e.target.value))}
           pattern="[0-9]*"
           placeholder="Enter book price"
           style={inputStyles}
         />
         <label style={labelStyles}>Book Cover:</label>
-        <input
-          type="file"
-          accept="image/*"
-          onChange={selectFile}
-          style={inputStyles}
-        />
+        <input type="file" accept="image/*" onChange={selectFile} style={inputStyles} />
         <hr />
         <div style={scrollableContainerStyles}>
           <div style={containerStyles}>
@@ -237,19 +231,13 @@ formData.append('typeId', selectedType.id);
           >
             Close
           </button>
-          <button
-            type="button"
-            className="btn btn-primary"
-            style={saveButtonStyles}
-            onClick={addBook}
-          >
-            Save 
+          <button type="button" className="btn btn-primary" style={saveButtonStyles} onClick={addBook}>
+            Save
           </button>
         </div>
       </div>
     </div>
   );
-  
 });
 
 export default CreateBook;

@@ -13,10 +13,11 @@ export const createBook = async (book) => {
   return data;
 };
 
-export const fetchBooks = async () => {
-  const { data } = await $host.get('api/book');
+export const fetchBooks = async (typeId, page, limit = 8) => {
+  const { data } = await $host.get('api/book', {params:{typeId, page, limit}});
   return data;
 };
+
 export const fetchOneBook = async (id) => {
   try {
     const { data } = await $host.get(`api/book/${id}`);

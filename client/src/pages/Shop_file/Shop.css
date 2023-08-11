@@ -1,0 +1,25 @@
+/* Shop.css */
+.btn1 {
+    display: flex;
+    flex-direction: column;
+    /* Убираем маргины */
+  }
+  
+  .btn1 button {
+    font-size: 16px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    margin-right: 23px;
+    text-align: center;
+    margin-top: 15px;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+  
+  /* Поддержка респонсивности для футера */
+  @media (max-width: 768px) {
+    .btn1 {
+      padding-right: 20px; /* Добавляем отступ для контента в мобильной версии */
+    }
+  }
+  

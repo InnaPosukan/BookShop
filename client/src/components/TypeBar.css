@@ -1,0 +1,30 @@
+.list-group {
+    font-size: 20px;
+    margin-top: 10px;
+    cursor: pointer;
+  }
+  
+  .list-group-item {
+    transition: background-color 0.3s ease;
+    border: none;
+    padding: 10px;
+  }
+  
+  .list-group-item:hover {
+    background-color: #f0f0f0;
+  }
+  
+  @media (max-width: 633px) {
+    .list-group {
+        font-size: 17px;
+
+    }
+  }
+  
+  @media (max-width: 385px) {
+    .list-group {
+        font-size: 15px;
+
+    }
+  }
+  

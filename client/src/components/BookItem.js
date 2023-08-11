@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { BOOKPAGE_ROUTE } from "../utils/consts";
+import "./BookItem.css"; // Import the CSS file
 
 const BookItem = ({ book }) => {
   const navigate = useNavigate();
@@ -10,50 +11,18 @@ const BookItem = ({ book }) => {
   };
 
   return (
-    <div
-      onClick={handleClick}
-      style={{
-        flex: "0 0 20%",
-        padding: "10px",
-        boxSizing: "border-box",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        position: "relative",
-        marginTop: "10px"
-      }}
-    >
-      <div
-        style={{
-          width: 220,
-          height: 200,
-          cursor: "pointer",
-          border: "1px solid #ccc",
-          borderRadius: "4px",
-          overflow: "hidden",
-        }}
-      >
+    <div className="book-item-container" onClick={handleClick}>
+      <div className="book-image-container">
         <img
-          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          className="book-image"
           src={process.env.REACT_APP_API_URL + book.img}
           alt={book.title}
         />
       </div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          marginTop: "5px",
-        }}
-      >
-        <div style={{ marginTop: "5px" }}>
-          {book.name} 
-        </div>
-        <div style={{ fontWeight: "bold" }}>{book.author}</div>
-        <div style={{ marginLeft: "-10px" }}>
-          {book.rating}
-        </div>
+      <div className="book-details">
+        <div className="book-name">{book.name}</div>
+        <div className="book-author">{book.author}</div>
+        <div className="book-rating">{book.rating}</div>
       </div>
     </div>
   );

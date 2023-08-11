@@ -1,9 +1,9 @@
 import { Component } from "react"
-import Admin from "./pages/Admin"
+import Admin from "./pages/Admin_file/Admin"
 import { ADMIN_ROUTE, BASKET_ROUTE, BOOKPAGE_ROUTE, LOGIN_ROUTE, MAINPAGE_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE } from "./utils/consts"
 import Basket from "./pages/Basket"
 import MainPage from "./pages/Mainpage_file/MainPage"
-import Shop from "./pages/Shop"
+import Shop from "./pages/Shop_file/Shop"
 import Auth from "./pages/Auth"
 import BookPage from "./pages/BookPage"
 

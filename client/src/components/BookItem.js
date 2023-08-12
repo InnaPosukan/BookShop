@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { BOOKPAGE_ROUTE } from "../utils/consts";
-import "./BookItem.css"; // Import the CSS file
+import "./BookItem.css"; 
 
 const BookItem = ({ book }) => {
   const navigate = useNavigate();

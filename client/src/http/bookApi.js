@@ -27,3 +27,12 @@ export const fetchOneBook = async (id) => {
     throw error; 
   }
 };
+export const sendRating = async (bookId, ratingValue, userId) => {
+  try {
+      const { data } = await $authHost.post(`api/rating`, { bookId, ratingValue, userId });
+      return data;
+  } catch (error) {
+      console.error("Error sending rating:", error);
+      throw error;
+  }
+};

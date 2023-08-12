@@ -1,19 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import book1 from '../assets/book1.jpg';
+import Rating from '../components/Rating/Rating'; 
 import {useParams} from 'react-router-dom'
-import { fetchOneBook } from '../http/bookApi';
+import { fetchOneBook  } from '../http/bookApi';
+import { decode as jwt_decode } from 'jsonwebtoken';
+
 const BookPage = () => {
   const [isMobileView, setIsMobileView] = useState(false);
 const [book, setBook] = useState ({info:[]})
 const imageSrc = process.env.REACT_APP_API_URL + book.img;
+const [userId, setUserId] = useState(null); // Объявляем userId
 
 const {id} = useParams()
 const params = useParams(
   console.log(params)
 )
-useEffect(() =>{
-fetchOneBook(id).then(data => setBook(data))
-}, [])
+useEffect(() => {
+  fetchOneBook(id).then(data => setBook(data));
+  const token = localStorage.getItem('token');
+  if (token) {
+    const decodedToken = jwt_decode(token);
+    setUserId(decodedToken.id); // Set the user ID
+  }
+}, []);
+
   useEffect(() => {
     const handleResize = () => {
       const isMobile = window.matchMedia("(max-width: 768px)").matches;
@@ -65,6 +74,8 @@ fetchOneBook(id).then(data => setBook(data))
             color: "#333"
           }}>
             <h2 style={{ fontSize: "30px", fontWeight: "700", marginTop: "20px" }}>{book.name}</h2>
+            <Rating bookId={id} />
+
             <p style={{ fontSize: "20px", marginTop: "20px", display: "block" }}>
               Price: {book.price} грн
             </p>
@@ -80,6 +91,7 @@ fetchOneBook(id).then(data => setBook(data))
             }}>
               Add to Cart
             </button>
+
             <p style={{ fontSize: "16px", marginTop: "20px" }}>
               Детальна інформація про книгу
             </p>
@@ -125,10 +137,13 @@ fetchOneBook(id).then(data => setBook(data))
               color: "#333",
             }}>
                <div style={{ border: "1px solid #ddd", padding: "20px", borderRadius: "8px" }}>
-                <h2 style={{ fontSize: "35px", fontWeight: "700", marginBottom: "0" }}>{book.name}</h2>
+                <h2 style={{ fontSize: "35px", fontWeight: "700", marginBottom: "0" }}>{book.name}</h2>             
+                <Rating bookId={id} userId={userId} />
+
                 <p style={{ fontSize: "25px", margin: "51px 0", display: "block" }}>
                   Ціна: {book.price} грн
                 </p>
+
                 <button style={{
                   margin: "10px 0",
                   padding: "10px 20px",
@@ -141,9 +156,12 @@ fetchOneBook(id).then(data => setBook(data))
                 }}>
                   Add to Cart
                 </button>
+
               </div>
+
             </div>
           </div>
+
           <p style={{ fontSize: "18px", marginTop: "20px", textAlign:"center" }}>
             Детальна інформація про книгу
           </p>
@@ -157,6 +175,7 @@ fetchOneBook(id).then(data => setBook(data))
               ))}
             </tbody>
           </table>
+
         </div>
       )}
     </div>

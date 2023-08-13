@@ -64,7 +64,7 @@ const NavBar = () => {
         <nav className="navbar">
           <a href="/" class="fas fa-home"></a> {/* Update the href here */}
           <a href="/shop" class="fas fa-shop"></a>
-          <a href="#reviews" class="fas fa-comments"></a>
+          <a href="/basket" class="fas fa-comments"></a>
           <a href="#contact" class="fas fa-blog"></a>
         </nav>
       </nav>

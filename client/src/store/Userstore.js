@@ -7,9 +7,13 @@ export default class UserStore{
         makeAutoObservable(this)
     }
     setIsAuth(bool){
+        console.log("setIsAuth:", bool);
+
         this._isAuth = bool
     }
     setUser(user){
+        console.log("setUser:", user);
+
         this._user = user
     }
     get isAuth(){

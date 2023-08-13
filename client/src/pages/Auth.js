@@ -32,6 +32,8 @@ const Auth = observer(() => {
       }
       user.setUser(data);
       user.setIsAuth(true);
+      console.log('User State after successful login/registration:', user); // Add this log
+
       navigate(SHOP_ROUTE);
     } catch (error) {
       if (error && error.response && error.response.data && error.response.data.message) {

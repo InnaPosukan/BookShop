@@ -2,7 +2,6 @@ const jwt = require('jsonwebtoken');
 
 module.exports = function (req, res, next) {
   if (req.method === 'OPTIONS') {
-    // OPTIONS request is typically sent by browsers for CORS preflight check
     next();
   } else {
     try {

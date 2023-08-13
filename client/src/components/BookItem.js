@@ -22,7 +22,7 @@ const BookItem = ({ book }) => {
       <div className="book-details">
         <div className="book-name">{book.name}</div>
         <div className="book-author">{book.author}</div>
-        <div className="book-rating">{book.rating}</div>
+        <div className="book-rating">{Math.round(book.rating * 100) / 100} ★</div>
       </div>
     </div>
   );

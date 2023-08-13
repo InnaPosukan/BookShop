@@ -1,4 +1,3 @@
-import { Component } from "react"
 import Admin from "./pages/Admin_file/Admin"
 import { ADMIN_ROUTE, BASKET_ROUTE, BOOKPAGE_ROUTE, LOGIN_ROUTE, MAINPAGE_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE } from "./utils/consts"
 import Basket from "./pages/Basket"

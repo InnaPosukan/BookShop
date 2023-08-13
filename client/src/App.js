@@ -5,13 +5,15 @@ import Navbar from './components/NavBar';
 import Footer from './components/Footer';
 import { observer } from 'mobx-react-lite';
 
-const App =observer(() => {
-  return(
-    <BrowserRouter> 
-    <Navbar></Navbar>
-    <AppRouter/>
-    <Footer/>
+const App = observer(() => {
+  return (
+      <BrowserRouter>
+        <Navbar />
+        <AppRouter />
+        <Footer />
       </BrowserRouter>
+    
   );
 });
+
 export default App;

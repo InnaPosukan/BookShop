@@ -1,27 +1,35 @@
 import React, { useEffect, useState } from 'react';
-import Rating from '../components/Rating/Rating'; 
-import {useParams} from 'react-router-dom'
-import { fetchOneBook  } from '../http/bookApi';
+import Rating from '../components/Rating/Rating';
+import { useParams } from 'react-router-dom';
 import { decode as jwt_decode } from 'jsonwebtoken';
+import { fetchOneBook, fetchAverageRating, sendRating, updateBookRating } from '../http/bookApi';
 
 const BookPage = () => {
   const [isMobileView, setIsMobileView] = useState(false);
-const [book, setBook] = useState ({info:[]})
-const imageSrc = process.env.REACT_APP_API_URL + book.img;
-const [userId, setUserId] = useState(null); // Объявляем userId
+  const [book, setBook] = useState({ info: [] });
+  const imageSrc = process.env.REACT_APP_API_URL + book.img;
+  const [userId, setUserId] = useState(null);
+  const [averageRating, setAverageRating] = useState(null);
 
-const {id} = useParams()
-const params = useParams(
-  console.log(params)
-)
-useEffect(() => {
-  fetchOneBook(id).then(data => setBook(data));
-  const token = localStorage.getItem('token');
-  if (token) {
-    const decodedToken = jwt_decode(token);
-    setUserId(decodedToken.id); // Set the user ID
-  }
-}, []);
+  const { id } = useParams();
+
+  useEffect(() => {
+    fetchOneBook(id).then(data => setBook(data));
+    const token = localStorage.getItem('token');
+    if (token) {
+      const decodedToken = jwt_decode(token);
+      setUserId(decodedToken.id);
+    }
+
+    fetchAverageRating(id)
+      .then(averageRating => {
+        console.log('Average Rating:', averageRating);
+        setAverageRating(averageRating);
+      })
+      .catch(error => {
+        console.error('Error fetching average rating:', error);
+      });
+  }, [id]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -29,13 +37,43 @@ useEffect(() => {
       setIsMobileView(isMobile);
     };
 
-    handleResize(); 
+    handleResize();
     window.addEventListener("resize", handleResize);
 
     return () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+  const handleRatingChange = async (newRating) => {
+    try {
+      if (!userId) {
+        console.error('User ID not available.');
+        return;
+      }
+  
+    
+      console.log('Sending rating:', newRating);
+      
+      // Отправляем рейтинг на сервер
+      await sendRating(id, newRating, userId);
+      console.log('Rating sent successfully.');
+  
+      // Обновляем рейтинг книги на сервере
+      await updateBookRating(id, newRating);
+      console.log('Book rating updated.');
+  
+      // Загружаем новый средний рейтинг книги
+      const newAverageRating = await fetchAverageRating(id);
+      console.log('New average rating:', newAverageRating);
+  
+      // Устанавливаем новый средний рейтинг
+      setAverageRating(newAverageRating);
+    } catch (error) {
+      console.error('Error sending rating:', error);
+    }
+  };
+  
+
 
   return (
     <div style={{
@@ -74,12 +112,12 @@ useEffect(() => {
             color: "#333"
           }}>
             <h2 style={{ fontSize: "30px", fontWeight: "700", marginTop: "20px" }}>{book.name}</h2>
-            <Rating bookId={id} />
+            <Rating bookId={id} userId={userId} />
 
             <p style={{ fontSize: "20px", marginTop: "20px", display: "block" }}>
               Price: {book.price} грн
             </p>
-            <button style={{
+            <button style={{ 
               marginTop: "20px",
               padding: "10px 20px",
               borderRadius: "40px",
@@ -175,7 +213,6 @@ useEffect(() => {
               ))}
             </tbody>
           </table>
-
         </div>
       )}
     </div>

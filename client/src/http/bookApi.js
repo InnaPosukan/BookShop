@@ -1,4 +1,5 @@
 import { $authHost, $host } from "./index";
+
 export const createType = async (type) => {
   const { data } = await $authHost.post('api/type', type);
   return data;
@@ -34,5 +35,24 @@ export const sendRating = async (bookId, ratingValue, userId) => {
   } catch (error) {
       console.error("Error sending rating:", error);
       throw error;
+  }
+};
+export const fetchAverageRating = async (bookId) => {
+  try {
+    const { data } = await $host.get(`api/rating/average/${bookId}`);
+    return data.averageRating;
+  } catch (error) {
+    console.error('Error fetching average rating:', error);
+    throw error;
+  }
+};
+export const updateBookRating = async (bookId, newRating) => {
+  try {
+    const response = await $authHost.patch(`api/book/${bookId}/rating`, { newRating });
+    console.log('Update book rating response:', response.data); // Log the response
+    return response.data;
+  } catch (error) {
+    console.error('Error updating book rating:', error);
+    throw error;
   }
 };

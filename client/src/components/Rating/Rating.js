@@ -17,7 +17,7 @@ const Rating = ({ bookId, userId }) => {
     }, [bookId, userId]);
 
     const handleRatingClick = async (itemValue) => {
-        if (!hasRated) {
+        if (userId && !hasRated) {
             try {
                 console.log("Clicked rating item:", itemValue);
                 setSelectedValue(itemValue);
@@ -30,7 +30,7 @@ const Rating = ({ bookId, userId }) => {
                 setError("Error sending rating");
             }
         } else {
-            console.log("User has already rated this book.");
+            console.log("User has already rated this book or is not logged in.");
         }
     };
 
@@ -46,14 +46,24 @@ const Rating = ({ bookId, userId }) => {
     };
 
     return (
-        <div className="rating" data-total-value={selectedValue}>
-            <div className={`rating__item ${hasRated ? 'disabled' : ''}`} data-item-value="5" onClick={() => handleRatingClick(5)}>★</div>
-            <div className={`rating__item ${hasRated ? 'disabled' : ''}`} data-item-value="4" onClick={() => handleRatingClick(4)}>★</div>
-            <div className={`rating__item ${hasRated ? 'disabled' : ''}`} data-item-value="3" onClick={() => handleRatingClick(3)}>★</div>
-            <div className={`rating__item ${hasRated ? 'disabled' : ''}`} data-item-value="2" onClick={() => handleRatingClick(2)}>★</div>
-            <div className={`rating__item ${hasRated ? 'disabled' : ''}`} data-item-value="1" onClick={() => handleRatingClick(1)}>★</div>
-        </div>
+        userId && (
+            <div className="rating-container">
+                <p className="rating-text" style={{ fontSize: '15px', marginTop:'12px' }}>Ваш рейтинг</p>
+                <div className="rating" data-total-value={selectedValue}>
+                    <div className={`rating__item ${hasRated ? 'disabled' : ''}`} data-item-value="5" onClick={() => handleRatingClick(5)}>★</div>
+                    <div className={`rating__item ${hasRated ? 'disabled' : ''}`} data-item-value="4" onClick={() => handleRatingClick(4)}>★</div>
+                    <div className={`rating__item ${hasRated ? 'disabled' : ''}`} data-item-value="3" onClick={() => handleRatingClick(3)}>★</div>
+                    <div className={`rating__item ${hasRated ? 'disabled' : ''}`} data-item-value="2" onClick={() => handleRatingClick(2)}>★</div>
+                    <div className={`rating__item ${hasRated ? 'disabled' : ''}`} data-item-value="1" onClick={() => handleRatingClick(1)}>★</div>
+                </div>
+            </div>
+        )
     );
 };
 
 export default Rating;
+
+
+
+
+

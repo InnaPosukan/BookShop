@@ -4,14 +4,19 @@ const jwt = require('jsonwebtoken');
 const { User, Basket } = require('../models/models');
 
 const generateJwt = (id, email, role) => {
-  return jwt.sign(
-    { id, email, role },
-    process.env.SECRET_KEY,
-    {
-      expiresIn: '24h',
-    }
-  );
+  try {
+    return jwt.sign(
+      { id, email, role },
+      process.env.SECRET_KEY,
+      {
+        expiresIn: '24h',
+      }
+    );
+  } catch (error) {
+    throw new Error('Token generation failed');
+  }
 };
+
 
 class UserController {
   async registration(req, res, next) {
@@ -48,10 +53,10 @@ class UserController {
       const token = generateJwt(user.id, user.email, user.role);
       return res.json({ token });
     } catch (error) {
-      console.error("Error during login:", error); // Вывод ошибки в консоль
-      return res.status(500).json({ message: "Login failed. Please try again later." });
+      return res.status(401).json({ message: "Login failed. Please try again later." });
     }
   }
+  
 
   async check(req, res, next) {
     try {

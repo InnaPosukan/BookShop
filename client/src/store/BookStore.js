@@ -1,15 +1,9 @@
 import{makeAutoObservable} from "mobx"
 export default class BookStore{
     constructor(){
-        this._types =[
-          
-        ]
-        this._books = [
-     
-        ]
-        this._selectedType ={
-
-        }
+        this._types =[]
+        this._books = []
+        this._selectedType ={}
         this._totalCount = 0
         this._page = 1
         this._limit = 8

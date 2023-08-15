@@ -11,6 +11,7 @@ import './Shop.css';
 
 const Shop = observer(() => {
   const { book } = useContext(Context);
+  const { user } = useContext(Context);
 
   useEffect(() => {
     fetchTypes().then(data => book.setTypes(data));
@@ -32,7 +33,6 @@ const Shop = observer(() => {
   }, [book.page, book.selectedType]);
 
   const navigate = useNavigate();
-  const isAdmin = true;
 
   const handleAdminClick = () => {
     console.log('Navigating to admin route...');
@@ -42,9 +42,7 @@ const Shop = observer(() => {
   return (
     <div className='btn1'>
       <div style={{ flex: '0 0 10px', display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
-        {isAdmin && (
-          <button onClick={handleAdminClick}>Add new item</button>
-        )}
+        <button onClick={handleAdminClick}>Add new item</button>
       </div>
       <div className='mt-2' style={{ display: 'flex', justifyContent: 'space-between', flex: '1 1 auto' }}>
         <div style={{ flex: '0 0 25%', backgroundColor: '#white' }}>

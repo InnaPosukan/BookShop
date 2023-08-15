@@ -1,8 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import './NavBar.css';
+import { Context } from '..';
 
 const NavBar = () => {
+  const { user } = useContext(Context);
+  const [isLogoutVisible, setIsLogoutVisible] = useState(false);
+
   useEffect(() => {
     const searchForm = document.querySelector('.search-form');
 
@@ -25,19 +29,35 @@ const NavBar = () => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-    
   }, []);
-  
+
   const handleLoginClick = () => {
     window.location.href = '/login'; 
   };
+  const LogOut = () => {
+    localStorage.removeItem('token'); 
+    user.setUser(null);
+    user.setIsAuth(false);
+    setIsLogoutVisible(false);
+  
+    alert('Вы успешно вышли из аккаунта');
+    window.location.href = '/'; 
+  };
+  
 
- 
+  const handleProfileClick = () => {
+    if (user.isAuth) {
+      setIsLogoutVisible(!isLogoutVisible);
+    } else {
+      handleLoginClick(); 
+    }
+  };
+
   return (
     <div>
       <header className="header">
         <div className="header-1">
-          <a href="/" className="logo"> 
+          <a href="/" className="logo">
             <i className="fas fa-book"></i> BookShop
           </a>
           <form action="" className="search-form">
@@ -46,9 +66,18 @@ const NavBar = () => {
           </form>
           <div className="icons">
             <div id="search-btn" className="fas fa-search"></div>
-            <a href="#" className="fas fa-shopping-cart"></a>
+            <a href="/basket" className="fas fa-shopping-cart"></a>
             <a href="#" className="fas fa-heart"></a>
-            <div id="login-btn" className="fas fa-user"onClick={handleLoginClick}></div>
+            <div
+              id="login-btn"
+              className={`fas fa-user ${isLogoutVisible ? 'active' : ''}`}
+              onClick={handleProfileClick}
+            ></div>
+            {isLogoutVisible && (
+              <div className="profile-menu">
+                <span onClick={LogOut}>Log Out</span>
+              </div>
+            )}
           </div>
         </div>
         <div className="header-2">
@@ -62,7 +91,7 @@ const NavBar = () => {
       </header>
       <nav className="bottom-navbar">
         <nav className="navbar">
-          <a href="/" class="fas fa-home"></a> {/* Update the href here */}
+          <a href="/" class="fas fa-home"></a>
           <a href="/shop" class="fas fa-shop"></a>
           <a href="/basket" class="fas fa-comments"></a>
           <a href="#contact" class="fas fa-blog"></a>

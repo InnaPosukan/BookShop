@@ -31,7 +31,7 @@ class UserController {
       }
       const hashPassword = await bcrypt.hash(password, 5);
       const user = await User.create({ email, role, password: hashPassword });
-      await Basket.create({ userId: user.id });
+      const basket = await Basket.create({ userId: user.id });
       const token = generateJwt(user.id, user.email, user.role);
       return res.json({ token });
     } catch (error) {
@@ -46,7 +46,7 @@ class UserController {
       if (!user) {
         return res.status(401).json({ message: "User is not found" });
       }
-      const comparePassword = bcrypt.compareSync(password, user.password);
+      let comparePassword = bcrypt.compareSync(password, user.password);
       if (!comparePassword) {
         return res.status(401).json({ message: "Incorrect password" });
       }

@@ -1,30 +1,27 @@
 import React, { useContext } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { authRoutes, publicRoutes } from '../routes';
-import { MAINPAGE_ROUTE } from '../utils/consts';
 import { Context } from '../index';
+import UserStore from '../store/Userstore'; 
+
+const userStore = new UserStore(); 
 
 const AppRouter = () => {
   const { user } = useContext(Context);
-  console.log('User Auth State:', user.isAuth);
+  console.log("isAuth:", userStore.isAuth);
+  console.log("publicRoutes:", publicRoutes);
+  console.log("authRoutes:", authRoutes);
 
   return (
-    <Routes>
-      {user.isAuth && (
-        <div>
-          {authRoutes.map(({ path, Component }) => (
-            <Route key={path} path={path} element={<Component />} />
-          ))}
-        </div>
-      )}
-      {publicRoutes.map(({ path, Component }) => (
-        <Route key={path} path={path} element={<Component />} />
-      ))}
-      {/* Перенаправление на главную страницу только в случае, если пользователь не аутентифицирован */}
-      {!user.isAuth && (
-        <Route path="*" element={<Navigate to={MAINPAGE_ROUTE} />} />
-      )}
-    </Routes>
+   <Routes>
+  {publicRoutes.map(({ path, Component }) => (
+    <Route key={path} path={path} element={<Component />} />
+  ))}
+  {userStore.isAuth && authRoutes.map(({ path, Component }) => (
+    <Route key={path} path={path} element={<Component />} />
+  ))}
+</Routes>
+
   );
 };
 

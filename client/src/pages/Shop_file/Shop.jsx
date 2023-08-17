@@ -8,12 +8,23 @@ import { Context } from '../..';
 import { fetchBooks, fetchTypes } from '../../http/bookApi';
 import Pages from '../../components/Pages';
 import './Shop.css'; 
+import { decode as jwt_decode } from 'jsonwebtoken';
 
 const Shop = observer(() => {
-  const { book } = useContext(Context);
-  const { user } = useContext(Context);
+  const { book, user } = useContext(Context); 
 
   useEffect(() => {
+    const token = localStorage.getItem('token'); 
+    console.log('User Token:', token); 
+
+    if (token) {
+      const decodedToken = jwt_decode(token);
+      const userRole = decodedToken.role;
+
+      console.log('User Role:', userRole); 
+      user.setRole(userRole);
+    }
+
     fetchTypes().then(data => book.setTypes(data));
     fetchBooks().then(data => {
       book.setBooks(data.rows);
@@ -42,7 +53,9 @@ const Shop = observer(() => {
   return (
     <div className='btn1'>
       <div style={{ flex: '0 0 10px', display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
-        <button onClick={handleAdminClick}>Add new item</button>
+        {user.role === 'ADMIN' && (
+          <button onClick={handleAdminClick}>Add new item</button>
+        )}
       </div>
       <div className='mt-2' style={{ display: 'flex', justifyContent: 'space-between', flex: '1 1 auto' }}>
         <div style={{ flex: '0 0 25%', backgroundColor: '#white' }}>

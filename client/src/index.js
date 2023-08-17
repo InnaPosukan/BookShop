@@ -7,7 +7,7 @@ import UserStore from './store/Userstore';
 import BookStore from './store/BookStore';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { SearchProvider } from './searchContext';
-
+import { CartProvider } from './CartContext';
 export const Context = createContext(null);
 console.log("API URL:", process.env.REACT_APP_API_URL);
 
@@ -15,6 +15,7 @@ const rootElement = document.getElementById('root');
 const root = ReactDOM.createRoot(rootElement);
 
 root.render(
+  <CartProvider>
   <SearchProvider>
 
   <Context.Provider value={{ 
@@ -23,6 +24,7 @@ root.render(
   }}>
       <App />
   </Context.Provider>
-  </SearchProvider>
 
+  </SearchProvider>
+  </CartProvider>
 );

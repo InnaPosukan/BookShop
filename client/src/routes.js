@@ -1,10 +1,10 @@
 import Admin from "./pages/Admin_file/Admin.jsx"
 import { ADMIN_ROUTE, BASKET_ROUTE, BOOKPAGE_ROUTE, LOGIN_ROUTE, MAINPAGE_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE } from "./utils/consts"
-import Basket from "./pages/Basket"
 import MainPage from "./pages/Mainpage_file/MainPage"
 import Shop from "./pages/Shop_file/Shop"
 import Auth from "./pages/Auth_file/Auth"
-import BookPage from "./pages/BookPage"
+import Basket from "./pages/Basket_file/Basket.jsx"
+import BookPage from "./pages/Bookpage_file/BookPage.jsx"
 
 export const authRoutes = [
  

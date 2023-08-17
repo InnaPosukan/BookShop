@@ -6,6 +6,7 @@ import Footer from './components/Footer';
 import { observer } from 'mobx-react-lite';
 import { Context } from '.';
 import {check} from "./http/userApi"
+import Basket from './pages/Basket_file/Basket';
 const App = observer(() => {
   const { user } = useContext(Context);
   const [loading, setLoading] = useState(true);

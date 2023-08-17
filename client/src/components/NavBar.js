@@ -3,7 +3,6 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import './NavBar.css';
 import { Context } from '..';
 import { useSearch } from '../searchContext';
-
 const NavBar = () => {
   const { user } = useContext(Context);
   const [isLogoutVisible, setIsLogoutVisible] = useState(false);
@@ -41,7 +40,6 @@ const NavBar = () => {
     user.setUser(null);
     user.setIsAuth(false);
     setIsLogoutVisible(false);
-  
     alert('Вы успешно вышли из аккаунта');
     window.location.href = '/'; 
   };

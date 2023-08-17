@@ -1,0 +1,38 @@
+
+.basket_top{
+    display: flex;
+    column-gap: 30px;
+    align-items: center;
+
+}
+.basket_list{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(205, 223, 223);
+    border-radius: 10px;
+    width: 80%;
+
+}
+.basket_item{
+    padding: 20px 42px 30px 20px;
+    display: flex;
+    justify-content: space-between;
+}
+.basket_item-minus, .basket_item-plus, .basket_item-del{
+    width: 28px;
+    height: 28px;
+    background: green;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+
+}
+.basket_item-right{
+    display: flex;
+    width: 50%;
+    justify-content: space-between;
+}
+.basket_item-count{
+    display: flex;
+    column-gap: 20px;
+}

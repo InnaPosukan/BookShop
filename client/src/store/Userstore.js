@@ -5,7 +5,7 @@ export default class UserStore{
     constructor(){
         this._isAuth = false
         this._user = {}
-        this._role = ''; // Добавленное поле для хранения роли
+        this._role = ''; 
 
         makeAutoObservable(this)
     }

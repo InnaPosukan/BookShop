@@ -33,6 +33,8 @@ const CreateBook = observer(({ show, onHide }) => {
     borderRadius: "10px",
     boxShadow: "0 2px 6px rgba(0, 0, 0, 0.2)",
     maxWidth: "400px",
+    maxHeight: "80%",  // Set a maximum height for the modal content
+    overflowY: "auto",
   };
 
   const closeButtonStyles = {
@@ -142,10 +144,9 @@ const CreateBook = observer(({ show, onHide }) => {
   };
 
   const scrollableContainerStyles = {
-    maxHeight: "80vh",
-    overflowY: "auto",
     padding: "0 10px",
   };
+  const hasInfo = info.length > 0; // Check if there are added info properties
 
   return (
     <div style={modalStyles}>
@@ -221,6 +222,12 @@ const CreateBook = observer(({ show, onHide }) => {
               </div>
             </div>
           ))}
+           {!hasInfo && (
+          <div style={{ textAlign: "center", marginTop: "20px" }}>
+            No properties added yet.
+          </div>
+                  )}
+
         </div>
         <div style={{ display: "flex", justifyContent: "flex-end" }}>
           <button

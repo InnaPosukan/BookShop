@@ -58,7 +58,7 @@ const CreateType = ({ show, onHide }) => {
     marginRight: "10px",
     border: "none",
     backgroundColor: "#6C757D",
-    color: "#fff", // Set text color to white
+    color: "#fff", 
   };
 
   return (
@@ -88,7 +88,7 @@ const CreateType = ({ show, onHide }) => {
           <button
             type="button"
             className="btn btn-primary"
-            style={{ ...buttonStyles, ...{ backgroundColor: "#FFA500" } }} // Updated to orange (#FFA500)
+            style={{ ...buttonStyles, ...{ backgroundColor: "#FFA500" } }}
             onClick={addType}
           >
             Save changes

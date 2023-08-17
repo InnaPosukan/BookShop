@@ -2,10 +2,12 @@ import React, { useContext, useState, useEffect } from 'react';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import './NavBar.css';
 import { Context } from '..';
+import { useSearch } from '../searchContext';
 
 const NavBar = () => {
   const { user } = useContext(Context);
   const [isLogoutVisible, setIsLogoutVisible] = useState(false);
+  const { searchQuery, setSearchQuery } = useSearch();
 
   useEffect(() => {
     const searchForm = document.querySelector('.search-form');
@@ -52,6 +54,9 @@ const NavBar = () => {
       handleLoginClick(); 
     }
   };
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
 
   return (
     <div>
@@ -61,9 +66,16 @@ const NavBar = () => {
             <i className="fas fa-book"></i> BookShop
           </a>
           <form action="" className="search-form">
-            <input type="search" name="search-box" id="search-box" placeholder="Search..." />
-            <label htmlFor="search-box" className="fas fa-search"></label>
-          </form>
+          <input
+            type="search"
+            name="search-box"
+            id="search-box"
+            placeholder="Search..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <label htmlFor="search-box" className="fas fa-search"></label>
+        </form>
           <div className="icons">
             <div id="search-btn" className="fas fa-search"></div>
             <a href="/basket" className="fas fa-shopping-cart"></a>

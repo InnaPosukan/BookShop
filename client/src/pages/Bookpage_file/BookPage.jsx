@@ -1,15 +1,15 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import Rating from '../../components/Rating/Rating';
 import { useParams } from 'react-router-dom';
 import { decode as jwt_decode } from 'jsonwebtoken';
-import { fetchOneBook, fetchAverageRating, sendRating, updateBookRating } from '../../http/bookApi';
-import { CartContext } from '../../CartContext';
+import { fetchOneBook, fetchAverageRating, sendRating, updateBookRating, addToCart } from '../../http/bookApi';
 import './BookPage.css';
+
 const BookPage = () => {
   const [book, setBook] = useState({ info: [] });
   const imageSrc = process.env.REACT_APP_API_URL + book.img;
   const [userId, setUserId] = useState(null);
-  const { addToCart, addToCartMessage } = useContext(CartContext);
+  const [quantity, setQuantity] = useState(1); 
 
   const { id } = useParams();
 
@@ -28,6 +28,7 @@ const BookPage = () => {
       .catch(error => {
         console.error('Error fetching average rating:', error);
       });
+
   }, [id]);
 
   const handleRatingChange = async (newRating) => {
@@ -51,13 +52,21 @@ const BookPage = () => {
       console.error('Error sending rating:', error);
     }
   };
+
   const handleAddToCart = () => {
     console.log('Add to Cart button clicked');
     console.log('Book details:', book);
-
-    addToCart(book);
+    console.log('Selected quantity:', quantity);
+    
+    addToCart(book.id, quantity)
+      .then(data => {
+        console.log('Item added to cart:', data);
+      })
+      .catch(error => {
+        console.error('Error adding item to cart:', error);
+      });
   };
-  
+
   return (
     <div className="book-page-container">
       <div className="book-details-container">
@@ -70,15 +79,18 @@ const BookPage = () => {
             <div className="info-box">
               <h2 className="book-title">{book.name}</h2>
               <Rating bookId={id} userId={userId} />
-
               <p className="book-price">Ціна: {book.price} грн</p>
-
-              <button onClick={() => handleAddToCart(book)}>Добавить в корзину</button>
-      <p>{addToCartMessage}</p> {/* Отобразите сообщение здесь */}
-    </div>
+              <input
+  type="number"
+  value={quantity}
+  onChange={(e) => setQuantity(Number(e.target.value))}
+  min="1"
+  max="99"
+/>
+<button onClick={handleAddToCart}>Добавить в корзину</button>
+            </div>
           </div>
         </div>
-
         <p className="book-info-heading">Детальна інформація про книгу</p>
         <table className="book-info-table">
           <tbody>

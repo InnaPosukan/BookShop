@@ -1,10 +1,11 @@
 import Admin from "./pages/Admin_file/Admin.jsx"
-import { ADMIN_ROUTE, BASKET_ROUTE, BOOKPAGE_ROUTE, LOGIN_ROUTE, MAINPAGE_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE } from "./utils/consts"
+import { ADMIN_ROUTE, BASKET_ROUTE, BOOKPAGE_ROUTE, LOGIN_ROUTE, MAINPAGE_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE, CONTACT_ROUTE } from "./utils/consts"
 import MainPage from "./pages/Mainpage_file/MainPage"
 import Shop from "./pages/Shop_file/Shop"
 import Auth from "./pages/Auth_file/Auth"
 import Basket from "./pages/Basket_file/Basket.jsx"
 import BookPage from "./pages/Bookpage_file/BookPage.jsx"
+import Contact from "./pages/Contact_file/Contact.jsx"
 
 export const authRoutes = [
  
@@ -39,5 +40,9 @@ export const publicRoutes = [
         path: BASKET_ROUTE,
         Component: Basket
       },
-
+      {
+        path: CONTACT_ROUTE,
+        Component: Contact
+      
+      },
 ];

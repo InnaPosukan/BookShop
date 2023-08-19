@@ -3,6 +3,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import './NavBar.css';
 import { Context } from '..';
 import { useSearch } from '../searchContext';
+
 const NavBar = () => {
   const { user } = useContext(Context);
   const [isLogoutVisible, setIsLogoutVisible] = useState(false);
@@ -95,7 +96,7 @@ const NavBar = () => {
             <a href="/">home</a>
             <a href="/shop">shop</a>
             <a href="#reviews">reviews</a>
-            <a href="#contact">contact</a>
+            <a href="/contact">contact</a>
           </nav>
         </div>
       </header>
@@ -104,7 +105,7 @@ const NavBar = () => {
           <a href="/" class="fas fa-home"></a>
           <a href="/shop" class="fas fa-shop"></a>
           <a href="/basket" class="fas fa-comments"></a>
-          <a href="#contact" class="fas fa-blog"></a>
+          <a href="/contact" class="fas fa-blog"></a>
         </nav>
       </nav>
     </div>

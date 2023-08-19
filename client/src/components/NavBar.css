@@ -140,6 +140,19 @@ font-size: 1.7rem;
 .bottom-navbar a:hover{
 background:var(--dark-color);
 }
+.cart-badge {
+    background-color: orange;
+    color: black;
+    border-radius: 50%;
+    padding: 2px 5px;
+    font-size: 12px ;
+    position: absolute;
+    margin-top: 17px; 
+    margin-left: -10px; 
+
+  }
+  
+  
 @media(max-width:991px){
     html{
         font-size: 55%;

@@ -4,8 +4,10 @@ import { useParams } from 'react-router-dom';
 import { decode as jwt_decode } from 'jsonwebtoken';
 import { fetchOneBook, fetchAverageRating, sendRating, updateBookRating, addToCart } from '../../http/bookApi';
 import './BookPage.css';
-
+import { useBasket} from '../../BasketContext';
 const BookPage = () => {
+  const { increaseTotalItems } = useBasket();
+
   const [book, setBook] = useState({ info: [] });
   const imageSrc = process.env.REACT_APP_API_URL + book.img;
   const [userId, setUserId] = useState(null);
@@ -52,21 +54,22 @@ const BookPage = () => {
       console.error('Error sending rating:', error);
     }
   };
-
   const handleAddToCart = () => {
     console.log('Add to Cart button clicked');
     console.log('Book details:', book);
     console.log('Selected quantity:', quantity);
-    
+  
     addToCart(book.id, quantity)
       .then(data => {
-        console.log('Item added to cart:', data);
+        increaseTotalItems(quantity); // Increase by the selected quantity
+  
+        console.log('Items added to cart:', data);
       })
       .catch(error => {
-        console.error('Error adding item to cart:', error);
+        console.error('Error adding items to cart:', error);
       });
   };
-
+  
   return (
     <div className="book-page-container">
       <div className="book-details-container">

@@ -6,11 +6,13 @@ import {
 } from '../../http/bookApi';
 import './Basket.css';
 import { useBasket } from '../../BasketContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 const Basket = ({ bookId }) => {
   const [cartItems, setCartItems] = useState([]);
   const [totalCost, setTotalCost] = useState(0);
-  const { totalItems, setTotalItems } = useBasket(); // Correct usage of the useBasket hook
+  const { totalItems, setTotalItems } = useBasket();
 
   useEffect(() => {
     fetchCartData()
@@ -26,7 +28,7 @@ const Basket = ({ bookId }) => {
           (totalQty, cartItem) => totalQty + cartItem.quantity,
           0
         );
-        setTotalItems(newTotalQuantity); // Use setTotalItems to update the totalItems state
+        setTotalItems(newTotalQuantity);
       })
       .catch(error => {
         console.error('Error fetching cart data:', error);
@@ -67,28 +69,70 @@ const Basket = ({ bookId }) => {
   };
 
   return (
-    <div className="cart-items-container">
-      <h2>Корзина</h2>
-      <p>Общее количество товаров: {totalItems}</p>
-      <p>Total Cost: {totalCost} грн</p>
+      <div className="basket-page">
+        <div className="shopping-cart-label">
+          <h2>Shopping Cart</h2>
+        </div>     
+         <div className="cart-items-container">
+        <table className="cart-table">
+          <thead>
+            <tr>
+              <th>Название</th>
+              <th>Цена</th>
+              <th>Количество</th>
+              <th>Действие</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Array.isArray(cartItems) &&
+              cartItems.map(cartItem => (
+                <tr key={cartItem.id} className="cart-item">
+                  <td>{cartItem.book.name}</td>
+                  <td>{cartItem.book.price * cartItem.quantity} грн</td>
+                  <td>
+                    <div className="quantity-controls">
+                      <button
+                        className="quantity-button"
+                        onClick={() =>
+                          handleQuantityChange(cartItem.id, cartItem.quantity - 1)
+                        }
+                      >
+                        -
+                      </button>
+                      <span className="quantity">{cartItem.quantity}</span>
+                      <button
+                        className="quantity-button"
+                        onClick={() =>
+                          handleQuantityChange(cartItem.id, cartItem.quantity + 1)
+                        }
+                      >
+                        +
+                      </button>
+                    </div>
+                  </td>
+                  <td>
+                    <FontAwesomeIcon
+                      icon={faTrashAlt}
+                      className="remove-icon"
+                      onClick={() => handleRemoveItem(cartItem.id)}
+                    />
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      </div>
 
-      <ul>
-        {Array.isArray(cartItems) &&
-          cartItems.map(cartItem => (
-            <li key={cartItem.id}>
-              <div className="cart-item-details">
-                <p>
-                  {cartItem.book.name} - Ціна: {cartItem.book.price * cartItem.quantity} грн
-                </p>
-                <p>Кількість:</p>
-                <button onClick={() => handleQuantityChange(cartItem.id, cartItem.quantity - 1)}>-</button>
-                {cartItem.quantity}
-                <button onClick={() => handleQuantityChange(cartItem.id, cartItem.quantity + 1)}>+</button>
-                <button onClick={() => handleRemoveItem(cartItem.id)}>Видалити</button>
-              </div>
-            </li>
-          ))}
-      </ul>
+      <div className="additional-container">
+      <div className="additional-content">
+        <p>Общее количество товаров в корзине: {totalItems}</p>
+        <p>Общая стоимость: {totalCost} грн</p>
+      </div>
+      <div className="buy-button-container">
+        <button className="buy-button">Купить</button>
+      </div>
+      </div>
+
     </div>
   );
 };

@@ -39,6 +39,21 @@ const BookInfo = sequelize.define('book_info', {
     description:{type: DataTypes.STRING, allowNull:false},
 
 })
+const Order = sequelize.define('order', {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    firstName: { type: DataTypes.STRING, allowNull: false },
+    lastName: { type: DataTypes.STRING, allowNull: false },
+    address: { type: DataTypes.STRING, allowNull: false },
+    phoneNumber: { type: DataTypes.STRING, allowNull: false },
+    status: { type: DataTypes.STRING, allowNull: false, defaultValue: "Pending" }
+
+
+});
+
+
+Basket.hasMany(Order);
+Order.belongsTo(Basket);
+
 User.hasOne(Basket)
 Basket.belongsTo(User)
 
@@ -67,5 +82,6 @@ module.exports ={
     Book,
     Type,
     BookInfo,
-    Rating
+    Rating,
+    Order
 }

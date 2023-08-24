@@ -94,3 +94,13 @@ export const updateCartItemQuantity = async (cartItemId, newQuantity) => {
     throw error;
   }
 };
+
+export const createOrders = async (orderData ) => {
+  try {
+    const { data } = await $host.post("api/order", orderData);
+    return data;
+  } catch (error) {
+    console.error("Error creating order:", error);
+    throw error;
+  }
+};

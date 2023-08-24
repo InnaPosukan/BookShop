@@ -14,6 +14,7 @@ const typeRouter = require('./routes/typeRouter');
 const BookRouter = require('./routes/BookRouter');
 const ratingRouter = require('./routes/ratingRouter');
 const cartRoutes = require('./routes/cartRouter');
+const orderRouter = require('./routes/orderRouter');
 
 
 const app = express()
@@ -26,6 +27,8 @@ app.use('/api/type', typeRouter);
 app.use('/api/book', BookRouter);
 app.use('/api/cart', cartRoutes);
 app.use('/api/rating', ratingRouter);
+app.use('/api/order', orderRouter);
+
 
 
 app.use(errorHandler)

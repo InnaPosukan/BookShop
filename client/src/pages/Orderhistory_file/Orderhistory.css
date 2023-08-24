@@ -1,0 +1,52 @@
+.order-history-page {
+    padding: 20px;
+  }
+  
+  .order-history-label {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .order-history-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .order-history-item {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  
+  .order-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .order-status {
+    background-color: #6C757D;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+  }
+  
+  .ordered-books-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+  }
+  
+  .ordered-books-list li {
+    margin-top: 10px;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+  }
+  
+  .total-price {
+    margin-top: 15px;
+    font-weight: bold;
+  }
+  

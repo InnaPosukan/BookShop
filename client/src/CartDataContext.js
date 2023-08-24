@@ -1,12 +1,19 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useState, useContext } from 'react';
 
 const CartDataContext = createContext();
 
 export const CartDataProvider = ({ children }) => {
   const [cartDataId, setCartDataId] = useState(null);
+  const [clearCartFunction, setClearCartFunction] = useState(null); // New line
+
+  const clearCart = async () => {
+    if (clearCartFunction) {
+      await clearCartFunction();
+    }
+  };
 
   return (
-    <CartDataContext.Provider value={{ cartDataId, setCartDataId }}>
+    <CartDataContext.Provider value={{ cartDataId, setCartDataId, clearCart, setClearCartFunction }}>
       {children}
     </CartDataContext.Provider>
   );

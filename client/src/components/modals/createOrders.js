@@ -7,7 +7,8 @@ const CreateOrders = ({ show, onHide }) => {
     const [last_name, setSurname] = useState("");
     const [phone_number, setPhone] = useState("");
     const [address, setAddress] = useState("");
-    const { cartDataId } = useCartData(); // Accessing the cartDataId from context
+    const { cartDataId } = useCartData(); 
+    const {  clearCart } = useCartData(); 
 
     const handleSaveChanges = async () => {
       const orderData = {
@@ -21,9 +22,9 @@ const CreateOrders = ({ show, onHide }) => {
       console.log("Order data:", orderData);
     
       try {
-        const createdOrder = await createOrders(orderData); // Pass cartId here
+        const createdOrder = await createOrders(orderData); 
         console.log("Order created:", createdOrder);
-    
+        await clearCart(); 
         onHide();
       } catch (error) {
         console.error("Error creating order:", error);

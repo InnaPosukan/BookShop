@@ -74,7 +74,7 @@
 }
 
 .remove-icon:hover {
-  color: #c0392b; /* Change color on hover */
+  color: #c0392b;
 }
 .additional-container p {
   text-align: center;
@@ -97,7 +97,7 @@
 .shopping-cart-label {
   text-align: center;
   margin-top: 30px;
-  position: relative; /* Add position relative */
+  position: relative; 
 }
 
 .shopping-cart-label h2::after {
@@ -109,5 +109,11 @@
   position: absolute;
   bottom: -8px; 
   left: 45%; 
+}
+
+.order-history-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 

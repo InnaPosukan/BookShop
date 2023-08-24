@@ -104,3 +104,12 @@ export const createOrders = async (orderData ) => {
     throw error;
   }
 };
+export const fetchOrderHistory = async () => {
+  try {
+    const { data } = await $authHost.get('api/order/history');
+    return data;
+  } catch (error) {
+    console.error('Error fetching order history:', error);
+    throw error;
+  }
+};

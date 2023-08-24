@@ -1,22 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   fetchCartData,
   removeFromCart,
-  updateCartItemQuantity
+  updateCartItemQuantity,
+  fetchOrderHistory 
 } from '../../http/bookApi';
 import './Basket.css';
+import { Context } from '../..';
 import { useBasket } from '../../BasketContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import CreateOrders from '../../components/modals/createOrders';
 import { useCartData } from '../../CartDataContext';
+import { decode as jwt_decode } from 'jsonwebtoken';
 
 const Basket = ({ bookId }) => {
+
   const [cartItems, setCartItems] = useState([]);
   const [totalCost, setTotalCost] = useState(0);
   const { totalItems, setTotalItems } = useBasket();
   const [isModalOpen, setModalOpen] = useState(false);
   const { cartDataId, setCartDataId } = useCartData();
+  const [orderHistory, setOrderHistory] = useState([]); // Define the order history state
 
   const openModal = () => {
     setModalOpen(true);
@@ -27,11 +32,30 @@ const Basket = ({ bookId }) => {
   };
 
   useEffect(() => {
+    const token = localStorage.getItem('token'); 
+    
+    if (token) {
+      const decodedToken = jwt_decode(token);
+      const userId = decodedToken.id;
+      console.log('User ID:', userId);
+  
+      fetchOrderHistory(userId)
+        .then(history => {
+          setOrderHistory(history); 
+        })
+        .catch(error => {
+          console.error('Error fetching order history:', error);
+        });
+    }
+  }, []);
+  
+  
+
+  useEffect(() => {
     fetchCartData()
     .then(cartData => {
-      // Log the ID of the cart data to the console
       console.log('Cart Data :', cartData);
-      setCartDataId(cartData.id); // Store the cartData ID in state
+      setCartDataId(cartData.id); 
 
       setCartItems(cartData.basket_books);
 
@@ -51,6 +75,7 @@ const Basket = ({ bookId }) => {
     .catch(error => {
       console.error('Error fetching cart data:', error);
     });
+    
   }, []);
 
   const handleRemoveItem = async cartItemId => {
@@ -184,8 +209,39 @@ const Basket = ({ bookId }) => {
       {isModalOpen && (
       <CreateOrders show={isModalOpen} onHide={closeModal} cartDataId={cartDataId} />
     )}
-    </div>
-    );
-  };  
+  <div className="order-history-container">
+        <h3>История заказов</h3>
+        <ul className="order-history-list">
+          {console.log('Order History:', orderHistory)}
+          {orderHistory.map((order, index) => (
+  <li key={index} className="order-history-item">
+    <p>Заказ {index + 1}:</p>
+    <p>Имя: {order.firstName}</p>
+    <p>Фамилия: {order.lastName}</p>
+    <p>Статус: {order.status}</p>
+    <p>Адрес: {order.address}</p>
+    <p>Телефон: {order.phoneNumber}</p>
+    <p>Книги в заказе:</p>
+    {order.basket && order.basket.basket_books && order.basket.basket_books.length > 0 ? (
+      <ul className="ordered-books-list">
+        {order.basket.basket_books.map((basketBook, bookIndex) => (
+          <li key={bookIndex}>
+            <p>Название: {basketBook.book.name}</p>
+            <p>Цена: {basketBook.book.price} грн</p>
+            <p>Количество: {basketBook.quantity}</p>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p>Нет информации о книгах в этом заказе.</p>
+    )}
+  </li>
+))}
 
-export default Basket;
+        </ul>
+      </div>
+    </div>
+  );
+};
+
+export default Basket; 

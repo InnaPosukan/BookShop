@@ -11,6 +11,7 @@ const NavBar = () => {
   const [isLogoutVisible, setIsLogoutVisible] = useState(false);
   const { searchQuery, setSearchQuery } = useSearch();
   const { totalItems, setTotalItems } = useBasket();
+  
   console.log('Total items in NavBar:', totalItems);
 
   useEffect(() => {
@@ -56,6 +57,7 @@ const NavBar = () => {
     user.setIsAuth(false);
     setIsLogoutVisible(false);
     alert('Вы успешно вышли из аккаунта');
+
     window.location.href = '/'; 
   };
 

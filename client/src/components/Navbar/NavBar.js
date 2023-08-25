@@ -1,9 +1,9 @@
 import React, { useContext, useState, useEffect } from 'react';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import './NavBar.css';
-import { Context } from '..';
-import { useSearch } from '../searchContext';
-import { useBasket } from '../BasketContext';
+import { Context } from '../..';
+import { useSearch } from '../Context/searchContext';
+import { useBasket } from '../Context/BasketContext';
 import { Link } from 'react-router-dom'; // Импортируйте компонент Link
 
 const NavBar = () => {

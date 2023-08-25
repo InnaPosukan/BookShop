@@ -1,8 +1,8 @@
 import { observer } from "mobx-react-lite";
 import React, { useContext } from "react";
-import { Context } from "..";
-import BookItem from "./BookItem";
-import { useSearch } from '../searchContext';
+import { Context } from "../..";
+import BookItem from "../BookItem/BookItem";
+import { useSearch } from '../Context/searchContext';
 
 const BookList = observer(() => {
   const { book } = useContext(Context);

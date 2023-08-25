@@ -113,3 +113,21 @@ export const fetchOrderHistory = async () => {
     throw error;
   }
 };
+export const fetchAllOrders = async () => {
+  try {
+    const { data } = await $authHost.get('api/order/all');
+    return data;
+  } catch (error) {
+    console.error('Error fetching all orders:', error);
+    throw error;
+  }
+};
+export const updateOrderStatus = async (orderId, newStatus) => {
+  try {
+    const { data } = await $authHost.patch(`api/order/status/${orderId}`, { newStatus });
+    return data;
+  } catch (error) {
+    console.error(`Error updating order status to "${newStatus}":`, error);
+    throw error;
+  }
+};

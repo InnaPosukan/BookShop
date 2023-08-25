@@ -5,11 +5,11 @@ import {
   updateCartItemQuantity,
 } from '../../http/bookApi';
 import './Basket.css';
-import { useBasket } from '../../BasketContext';
+import { useBasket } from '../../components/Context/BasketContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import CreateOrders from '../../components/modals/createOrders';
-import { useCartData } from '../../CartDataContext';
+import { useCartData } from '../../components/Context/CartDataContext';
 import { decode as jwt_decode } from 'jsonwebtoken';
 import { Link } from 'react-router-dom';
 

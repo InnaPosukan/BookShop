@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { BOOKPAGE_ROUTE } from "../utils/consts";
+import { BOOKPAGE_ROUTE } from "../../utils/consts";
 import "./BookItem.css"; 
 
 const BookItem = ({ book }) => {

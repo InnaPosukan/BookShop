@@ -1,12 +1,12 @@
 import React, { useContext, useEffect } from 'react';
-import TypeBar from '../../components/TypeBar';
-import BookList from '../../components/BookList';
+import TypeBar from '../../components/TypeBar/TypeBar';
+import BookList from '../../components/BookList/BookList';
 import { useNavigate } from 'react-router-dom';
 import { ADMIN_ROUTE } from '../../utils/consts';
 import { observer } from 'mobx-react-lite';
 import { Context } from '../..';
 import { fetchBooks, fetchTypes } from '../../http/bookApi';
-import Pages from '../../components/Pages';
+import Pages from '../../components/Pagination/Pages';
 import './Shop.css'; 
 import { decode as jwt_decode } from 'jsonwebtoken';
 

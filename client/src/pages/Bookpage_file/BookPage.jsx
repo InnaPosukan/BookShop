@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { decode as jwt_decode } from 'jsonwebtoken';
 import { fetchOneBook, fetchAverageRating, sendRating, updateBookRating, addToCart } from '../../http/bookApi';
 import './BookPage.css';
-import { useBasket} from '../../BasketContext';
+import { useBasket} from '../../components/Context/BasketContext';
 const BookPage = () => {
   const { increaseTotalItems } = useBasket();
 

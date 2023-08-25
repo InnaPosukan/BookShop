@@ -5,9 +5,9 @@ import { createContext } from 'react';
 import UserStore from './store/Userstore';
 import BookStore from './store/BookStore';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import { SearchProvider } from './searchContext';
-import { BasketProvider } from './BasketContext';
-import { CartDataProvider } from './CartDataContext';
+import { SearchProvider } from './components/Context/searchContext';
+import { BasketProvider } from './components/Context/BasketContext';
+import { CartDataProvider } from './components/Context/CartDataContext';
 
 export const Context = createContext(null);
 console.log("API URL:", process.env.REACT_APP_API_URL);

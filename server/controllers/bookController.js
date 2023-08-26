@@ -2,6 +2,7 @@ const uuid = require('uuid');
 const path  = require('path');
 const { Book, BookInfo } = require('../models/models');
 const ApiError = require('../error/ApiError');
+const fs = require('fs');
 
 class BookController {
   async create(req, res, next) {
@@ -65,6 +66,34 @@ class BookController {
     } catch (e) {
       console.error("Error fetching book:", e);
       return res.status(500).json({ error: "Internal Server Error" });
+    }
+  }
+
+  async delete(req, res, next) {
+    try {
+      const { id } = req.params;
+
+      // Находим книгу по айди
+      const book = await Book.findOne({ where: { id } });
+
+      if (!book) {
+        return next(ApiError.notFound(`Книга с айди ${id} не найдена`));
+      }
+
+      // Удаление информации о книге
+      await BookInfo.destroy({ where: { bookId: id } });
+
+      // Удаление файла изображения
+      const imagePath = path.resolve(__dirname, '..', 'static', book.img);
+      fs.unlinkSync(imagePath);
+
+      // Удаление самой книги
+      await Book.destroy({ where: { id } });
+
+      return res.json({ message: 'Книга успешно удалена' });
+    } catch (e) {
+      console.error('Ошибка при удалении книги:', e);
+      return next(ApiError.internal('Произошла ошибка при удалении книги'));
     }
   }
 }

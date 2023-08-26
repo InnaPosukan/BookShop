@@ -1,39 +1,55 @@
-import React, {  useEffect, useState } from 'react';
-import {fetchOrderHistory } from '../../http/bookApi';
+import React, { useEffect, useState } from 'react';
+import { fetchOrderHistory } from '../../http/bookApi';
+import { decode as jwt_decode } from 'jsonwebtoken';
 import './Orderhistory.css';
 
-import { decode as jwt_decode } from 'jsonwebtoken';
-
 const OrderHistory = ({ bookId }) => {
+  const [orderHistory, setOrderHistory] = useState([]);
+  const [sortingStatus, setSortingStatus] = useState('');
 
-    const [orderHistory, setOrderHistory] = useState([]);
+  useEffect(() => {
+    const token = localStorage.getItem('token');
 
-    useEffect(() => {
-      const token = localStorage.getItem('token');
-  
-      if (token) {
-        const decodedToken = jwt_decode(token);
-        const userId = decodedToken.id;
-  
-        fetchOrderHistory(userId)
-          .then(history => {
-            setOrderHistory(history);
-          })
-          .catch(error => {
-            console.error('Error fetching order history:', error);
-          });
-      }
-    }, []);
-  
-    return (
-      <div className="order-history-page">
-        <div className="order-history-label">
-          <h2>Order History</h2>
-        </div>
-        <div className="order-history-container">
-          <ul className="order-history-list">
-            {orderHistory.map((order, index) => (
-              <li key={index} className="order-history-item">
+    if (token) {
+      const decodedToken = jwt_decode(token);
+      const userId = decodedToken.id;
+
+      fetchOrderHistory(userId)
+        .then(history => {
+          const sortedHistory = sortingStatus
+            ? history.filter(order => order.status === sortingStatus)
+            : history;
+
+          setOrderHistory(sortedHistory);
+        })
+        .catch(error => {
+          console.error('Error fetching order history:', error);
+        });
+    }
+  }, [sortingStatus]);
+
+  const calculateTotalPrice = (books) => {
+    return books.reduce((total, book) => total + (book.book.price * book.quantity), 0);
+  };
+
+  return (
+    <div className="order-history-page">
+      <div className="order-history-label">
+        <h2>Order History</h2>
+      </div>
+      <div className="order-history-container">
+        <select
+          value={sortingStatus}
+          onChange={event => setSortingStatus(event.target.value)}
+        >
+          <option value="">All</option>
+          <option value="Pending">Pending</option>
+          <option value="accepted">Accepted</option>
+          <option value="delivered">Delivered</option>
+        </select>
+        <ul className="order-history-list">
+          {orderHistory.map((order, index) => (
+            <li key={index} className="order-history-item">
                 <p>Заказ {index + 1}:</p>
                 <p>Имя: {order.firstName}</p>
                 <p>Фамилия: {order.lastName}</p>
@@ -67,4 +83,4 @@ const OrderHistory = ({ bookId }) => {
   const calculateTotalPrice = (books) => {
   return books.reduce((total, book) => total + (book.book.price * book.quantity), 0);
 };
-  export default OrderHistory;
+  export default OrderHistory; 

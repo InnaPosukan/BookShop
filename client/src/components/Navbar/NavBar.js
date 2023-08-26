@@ -4,14 +4,15 @@ import './NavBar.css';
 import { Context } from '../..';
 import { useSearch } from '../Context/searchContext';
 import { useBasket } from '../Context/BasketContext';
-import { Link } from 'react-router-dom'; // Импортируйте компонент Link
+import { Link } from 'react-router-dom';
+import { decode as jwt_decode } from 'jsonwebtoken';
 
 const NavBar = () => {
   const { user } = useContext(Context);
   const [isLogoutVisible, setIsLogoutVisible] = useState(false);
   const { searchQuery, setSearchQuery } = useSearch();
   const { totalItems, setTotalItems } = useBasket();
-  
+
   console.log('Total items in NavBar:', totalItems);
 
   useEffect(() => {
@@ -73,6 +74,20 @@ const NavBar = () => {
     setSearchQuery(event.target.value);
   };
 
+  useEffect(() => {
+    const token = localStorage.getItem('token'); 
+    console.log('User Token:', token); 
+
+    if (token) {
+      const decodedToken = jwt_decode(token);
+      const userRole = decodedToken.role;
+
+      console.log('User Role:', userRole); 
+      user.setRole(userRole);
+      setIsLogoutVisible(!isLogoutVisible);
+    }
+  }, [user.role]);
+
   return (
     <div>
       <header className="header">
@@ -95,10 +110,12 @@ const NavBar = () => {
   
           <div className="icons">
             <div id="search-btn" className="fas fa-search"></div>
+            {user.role === 'ADMIN' && (
+              <a href="/admin" className="fas fa-plus"></a>
+            )}
             <Link to="/basket" className="fas fa-shopping-cart">
               <span className="cart-badge">{totalItems}</span>
             </Link>
-            <a href="#" className="fas fa-heart"></a>
             <div
               id="login-btn"
               className={`fas fa-user ${isLogoutVisible ? 'active' : ''}`}
@@ -116,7 +133,7 @@ const NavBar = () => {
           <nav className="navbar">
             <Link to="/">home</Link>
             <Link to="/shop">shop</Link>
-            <a href="#reviews">reviews</a>
+            <a href="/profile">profile</a>
             <Link to="/contact">contact</Link>
           </nav>
         </div>
@@ -126,9 +143,6 @@ const NavBar = () => {
         <nav className="navbar">
           <Link to="/" className="fas fa-home"></Link>
           <Link to="/shop" className="fas fa-shop"></Link>
-          <Link to="/basket" className="fas fa-comments">
-            <span className="cart-badge">{totalItems}</span>
-          </Link>
           <Link to="/contact" className="fas fa-blog"></Link>
         </nav>
       </nav>

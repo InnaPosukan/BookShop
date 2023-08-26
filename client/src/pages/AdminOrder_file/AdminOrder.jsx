@@ -1,20 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { fetchAllOrders, updateOrderStatus } from '../../http/bookApi'; // Импортируйте функции
+import { fetchAllOrders, updateOrderStatus } from '../../http/bookApi';
 import './AdminOrder.css';
 
 const AdminOrder = () => {
   const [orders, setOrders] = useState([]);
-  const [selectedStatus, setSelectedStatus] = useState('all'); // Добавляем выбранный статус
+  const [sortingStatus, setSortingStatus] = useState('');
 
   useEffect(() => {
     fetchAllOrders()
       .then(ordersData => {
-        setOrders(ordersData);
+        const sortedOrders = sortingStatus
+          ? ordersData.filter(order => order.status === sortingStatus)
+          : ordersData;
+          
+        setOrders(sortedOrders);
       })
       .catch(error => {
         console.error('Error fetching all orders:', error);
       });
-  }, []);
+  }, [sortingStatus]);
 
   const handleOrderStatusUpdate = async (orderId, newStatus) => {
     try {
@@ -30,8 +34,6 @@ const AdminOrder = () => {
     }
   };
 
-  const filteredOrders = selectedStatus === 'all' ? orders : orders.filter(order => order.status === selectedStatus);
-
   const calculateTotalPrice = (books) => {
     return books.reduce((total, book) => total + (book.book.price * book.quantity), 0);
   };
@@ -39,15 +41,17 @@ const AdminOrder = () => {
   return (
     <div className='container'>
       <h1 className='h1'>Admin Orders</h1>
-      <div>
-        <select value={selectedStatus} onChange={e => setSelectedStatus(e.target.value)}>
-          <option value="all">Все заказы</option>
-          <option value="accepted">Принят</option>
-          <option value="delivered">Доставлен</option>
-        </select>
-      </div>
+      <select
+        value={sortingStatus}
+        onChange={event => setSortingStatus(event.target.value)}
+      >
+        <option value="">All</option>
+        <option value="Pending">Pending</option>
+        <option value="accepted">Accepted</option>
+        <option value="delivered">Delivered</option>
+      </select>
       <div className="order-list">
-        {filteredOrders.map((order, index) => (
+        {orders.map((order, index) => (
           <div key={index} className="order-item">
             <p>Заказ {index + 1}:</p>
             <p>Имя: {order.firstName}</p>

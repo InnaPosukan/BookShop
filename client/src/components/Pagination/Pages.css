@@ -1,0 +1,20 @@
+.pagination-styles {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .pagination-item-styles {
+    margin: 0 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .active-item-styles {
+    background-color: orange;
+    color: white;
+    border-color: darkorange;
+  }
+  

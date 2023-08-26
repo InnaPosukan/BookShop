@@ -160,6 +160,7 @@ const Basket = () => {
         <table className="cart-table">
           <thead>
             <tr>
+            <th>Изображение</th>
               <th>Название</th>
               <th>Цена</th>
               <th>Количество</th>
@@ -167,13 +168,31 @@ const Basket = () => {
             </tr>
           </thead>
           <tbody>
-            {Array.isArray(cartItems) &&
-              cartItems.map(cartItem => (
-                <tr key={cartItem.id} className="cart-item">
-                  <td>{cartItem.book.name}</td>
-                  <td>{cartItem.book.price * cartItem.quantity} грн</td>
-                  <td>
-                    <div className="quantity-controls">
+  {Array.isArray(cartItems) &&
+    cartItems.map(cartItem => (
+      <tr key={cartItem.id} className="cart-item">
+        <td>
+          {cartItem.book ? (
+            <div className="cart-item-image">
+              <img
+                src={process.env.REACT_APP_API_URL + cartItem.book.img}
+                alt={cartItem.book.name}
+              />
+            </div>
+          ) : (
+            "No Image"
+          )}
+        </td>
+        <td>
+          {cartItem.book ? cartItem.book.name : "No Book Name"}
+        </td>
+        <td>
+          {cartItem.book
+            ? cartItem.book.price * cartItem.quantity + " грн"
+            : ""}
+        </td>
+        <td>
+                  <div className="quantity-controls">
                       <button
                         className="quantity-button"
                         onClick={() =>

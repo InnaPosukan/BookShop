@@ -1,4 +1,5 @@
-.cart-items-container, .additional-container {
+.cart-items-container, 
+.additional-container {
   max-width: 900px;
   margin: 0 auto;
   padding: 20px;
@@ -7,6 +8,7 @@
   background-color: #fff;
   margin-top: 30px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
 }
 
 .cart-table {
@@ -14,6 +16,9 @@
   border-collapse: collapse;
   margin-top: 20px;
   border: none;
+}
+.cart-items-container {
+  overflow-x: auto; 
 }
 
 .cart-table th,
@@ -23,6 +28,9 @@
   vertical-align: middle;
   border: none; 
   border-bottom: 1px solid #ddd; 
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .quantity-controls {
   display: flex;
@@ -117,3 +125,10 @@
   justify-content: center;
 }
 
+.cart-item-image img {
+  max-width: 150px; 
+  max-height: 150px; 
+  object-fit: cover; 
+  border: 1px solid #ccc; 
+  border-radius: 4px;
+}

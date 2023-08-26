@@ -131,3 +131,12 @@ export const updateOrderStatus = async (orderId, newStatus) => {
     throw error;
   }
 };
+export const deleteBookById = async (bookId) => {
+  try {
+    const { data } = await $authHost.delete(`api/book/${bookId}`);
+    return data;
+  } catch (error) {
+    console.error('Error deleting book:', error);
+    throw error;
+  }
+};

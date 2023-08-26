@@ -79,19 +79,22 @@ const BookPage = () => {
             alt={book.name}
           />
           <div className="info-class">
-            <div className="info-box">
-              <h2 className="book-title">{book.name}</h2>
-              <Rating bookId={id} userId={userId} />
-              <p className="book-price">Ціна: {book.price} грн</p>
-              <input
-  type="number"
-  value={quantity}
-  onChange={(e) => setQuantity(Number(e.target.value))}
-  min="1"
-  max="99"
-/>
-<button onClick={handleAddToCart}>Добавить в корзину</button>
-            </div>
+          <div className="info-box">
+  <h2 className="book-title">
+    {book.name} (Артикул: {book.id})
+  </h2>
+  <Rating bookId={id} userId={userId} />
+  <p className="book-price">Ціна: {book.price} грн</p>
+  <input
+    type="number"
+    value={quantity}
+    onChange={(e) => setQuantity(Number(e.target.value))}
+    min="1"
+    max="99"
+  />
+  <button onClick={handleAddToCart}>Добавить в корзину</button>
+</div>
+
           </div>
         </div>
         <p className="book-info-heading">Детальна інформація про книгу</p>

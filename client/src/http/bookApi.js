@@ -49,7 +49,7 @@ export const fetchAverageRating = async (bookId) => {
 export const updateBookRating = async (bookId, newRating) => {
   try {
     const response = await $authHost.patch(`api/book/${bookId}/rating`, { newRating });
-    console.log('Update book rating response:', response.data); // Log the response
+    console.log('Update book rating response:', response.data); 
     return response.data;
   } catch (error) {
     console.error('Error updating book rating:', error);
@@ -58,7 +58,7 @@ export const updateBookRating = async (bookId, newRating) => {
 };
 export const addToCart = async (bookId, quantity) => { 
   try {
-    const { data } = await $authHost.post('api/cart/add', { bookId, quantity }); // Передайте quantity в теле запроса
+    const { data } = await $authHost.post('api/cart/add', { bookId, quantity }); 
     return data;
   } catch (error) {
     console.error('Error adding item to cart:', error);
@@ -137,6 +137,21 @@ export const deleteBookById = async (bookId) => {
     return data;
   } catch (error) {
     console.error('Error deleting book:', error);
+    throw error;
+  }
+};
+export const fetchTopNewBooks = async (limit = 4) => {
+  try {
+    const { data } = await $host.get('api/book', {
+      params: {
+        _sort: 'createdAt', 
+        _order: 'desc',    
+        _limit: limit       
+      }
+    });
+    return data;
+  } catch (error) {
+    console.error('Error fetching top new books:', error);
     throw error;
   }
 };

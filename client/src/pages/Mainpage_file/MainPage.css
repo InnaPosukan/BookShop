@@ -1,3 +1,8 @@
+*{
+  margin: 0;
+  padding: 0;
+
+}
 .image-container {
   width: 100vw;
   overflow: hidden;
@@ -40,6 +45,95 @@
 .shop-now-button:hover {
   background-color: darkgoldenrod;
 }
+
+.last-added-books ul,
+.random-books ul {
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.last-added-books .book-image,
+.random-books .book-image {
+  height: 300px;
+  width: 250px;
+  border-radius: 10%;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+.last-added-books .book-image,
+.random-books .book-image {
+
+  transition: transform 0.3s ease-in-out;
+}
+.last-added-books .book-name {
+   color: black;
+   
+}
+.last-added-books .book-card span {
+  color: black;
+  font-size: 15px;
+}
+.last-added-books .book-image:hover,
+.random-books .book-image:hover {
+  transform: scale(1.04); 
+}
+.book-card {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 40px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.custom-nav-links {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 40px;
+  font-size: 15px;
+}
+
+.custom-nav-link {
+  
+  color: #000;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 10px 15px;
+  transition: color 0.3s ease-in-out;
+}
+
+.custom-nav-link:hover {
+  color: darkorange;
+}
+
+.custom-nav-link.active {
+  color: darkorange;
+}
+.custom-nav-link:hover::after,
+.custom-nav-link.active::after {
+  content: "";
+  display: block;
+  width: 70%;
+  margin-left: 20px;
+  height: 2px;
+  background-color: darkorange;
+}
+.book-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.book-title {
+  color: black;
+
+}
+
+
 @media (max-width: 1700px) {
 .image-text {
   bottom: 130px;
@@ -55,6 +149,22 @@
   }
   .shop-now-button {
     font-size: 12px;
+  }
+  .last-added-books ul,
+  .random-books ul {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 40px;
+  }
+
+  .last-added-books .book-image,
+  .random-books .book-image {
+    height: 300px;
+    max-width: 300px;
+    border-radius: 10%;
+    display: block;
+    margin: 0 auto;
   }
 }
 @media (max-width: 1250px) {
@@ -108,6 +218,22 @@
     font-size: 9px;
     padding: 5px 10px;
 
+  }
+  .last-added-books ul,
+  .random-books ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin-top: 20px; 
+  }
+  .last-added-books .book-image,
+  .random-books .book-image {
+    max-width: 120px; 
+    max-height: 150px; 
+  }
+  .book-card {
+    padding: 20px;
+  
   }
 }
 @media (max-width: 415px) {

@@ -73,21 +73,17 @@ class BookController {
     try {
       const { id } = req.params;
 
-      // Находим книгу по айди
       const book = await Book.findOne({ where: { id } });
 
       if (!book) {
         return next(ApiError.notFound(`Книга с айди ${id} не найдена`));
       }
 
-      // Удаление информации о книге
       await BookInfo.destroy({ where: { bookId: id } });
 
-      // Удаление файла изображения
       const imagePath = path.resolve(__dirname, '..', 'static', book.img);
       fs.unlinkSync(imagePath);
 
-      // Удаление самой книги
       await Book.destroy({ where: { id } });
 
       return res.json({ message: 'Книга успешно удалена' });
@@ -96,6 +92,19 @@ class BookController {
       return next(ApiError.internal('Произошла ошибка при удалении книги'));
     }
   }
+  async getTopNewBooks(req, res, next) {
+    try {
+      const limit = parseInt(req.query.limit) || 4; 
+      const newBooks = await Book.findAll({
+        order: [['createdAt', 'DESC']],
+        limit
+      });
+      
+      return res.json(newBooks);
+    } catch (e) {
+      console.error('Error fetching top new books:', e);
+      return next(ApiError.internal('Произошла ошибка при получении последних добавленных книг'));
+    }
+  }
 }
-
 module.exports = new BookController();

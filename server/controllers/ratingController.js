@@ -63,17 +63,15 @@ class RatingController {
                 return res.status(404).json({ message: 'Rating not found' });
             }
 
-            const roundedRating = Math.round(newRating); // Округляем новый рейтинг до целого числа
+            const roundedRating = Math.round(newRating); 
             rating.rate = roundedRating;
             await rating.save();
 
-            // Вычисляем новый средний рейтинг для книги
             const newAverageRating = await Rating.findOne({
                 attributes: [[Rating.sequelize.fn('AVG', Rating.sequelize.col('rate')), 'averageRating']],
                 where: { bookId }
             });
 
-            // Обновляем значение рейтинга в таблице books
             await Book.update({ rating: newAverageRating.dataValues.averageRating }, { where: { id: bookId } });
 
             return res.json({ message: 'Rating updated successfully' });

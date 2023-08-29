@@ -59,10 +59,14 @@ const BookPage = () => {
     console.log('Book details:', book);
     console.log('Selected quantity:', quantity);
   
+    if (!userId) {
+      alert('Please log in to add an item to your cart.');
+      return;
+    }
+  
     addToCart(book.id, quantity)
       .then(data => {
-        increaseTotalItems(quantity); // Increase by the selected quantity
-  
+        increaseTotalItems(quantity);
         console.log('Items added to cart:', data);
       })
       .catch(error => {

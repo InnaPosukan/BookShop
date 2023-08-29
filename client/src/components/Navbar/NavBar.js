@@ -9,7 +9,7 @@ import { decode as jwt_decode } from 'jsonwebtoken';
 
 const NavBar = () => {
   const { user } = useContext(Context);
-  const [isLogoutVisible, setIsLogoutVisible] = useState(false);
+  const [isLogoutVisible, setIsLogoutVisible] = useState(user.isAuth);
   const { searchQuery, setSearchQuery } = useSearch();
   const { totalItems, setTotalItems } = useBasket();
 
@@ -57,8 +57,8 @@ const NavBar = () => {
     user.setUser(null);
     user.setIsAuth(false);
     setIsLogoutVisible(false);
+    setTotalItems(0);
     alert('Вы успешно вышли из аккаунта');
-
     window.location.href = '/'; 
   };
 
@@ -84,9 +84,16 @@ const NavBar = () => {
 
       console.log('User Role:', userRole); 
       user.setRole(userRole);
-      setIsLogoutVisible(!isLogoutVisible);
     }
   }, [user.role]);
+
+  useEffect(() => {
+    if (user.isAuth) {
+      setIsLogoutVisible(true); 
+    } else {
+      setIsLogoutVisible(false); 
+    }
+  }, [user.isAuth]);
 
   return (
     <div>
@@ -110,7 +117,7 @@ const NavBar = () => {
   
           <div className="icons">
             <div id="search-btn" className="fas fa-search"></div>
-            {user.role === 'ADMIN' && (
+            {user.isAuth && (
               <a href="/admin" className="fas fa-plus"></a>
             )}
             <Link to="/basket" className="fas fa-shopping-cart">
@@ -118,12 +125,13 @@ const NavBar = () => {
             </Link>
             <div
               id="login-btn"
-              className={`fas fa-user ${isLogoutVisible ? 'active' : ''}`}
-              onClick={handleProfileClick}
+              className={`fas ${user.isAuth ? 'fa-sign-out-alt' : 'fa-user'} ${isLogoutVisible ? 'active' : ''}`}
+              onClick={user.isAuth ? LogOut : handleLoginClick}
             ></div>
+
             {isLogoutVisible && (
               <div className="profile-menu">
-                <span onClick={LogOut}>Log Out</span>
+                <span onClick={LogOut}></span>
               </div>
             )}
           </div>
@@ -131,7 +139,7 @@ const NavBar = () => {
         
         <div className="header-2">
           <nav className="navbar">
-          <a href="/">home</a>
+            <a href="/">home</a>
             <a href="/shop">shop</a>
             <a href="/profile">profile</a>
             <a href="/contact">contact</a>

@@ -4,7 +4,7 @@ const CartDataContext = createContext();
 
 export const CartDataProvider = ({ children }) => {
   const [cartDataId, setCartDataId] = useState(null);
-  const [clearCartFunction, setClearCartFunction] = useState(null); // New line
+  const [clearCartFunction, setClearCartFunction] = useState(null); 
 
   const clearCart = async () => {
     if (clearCartFunction) {

@@ -83,38 +83,61 @@ const BookPage = () => {
             alt={book.name}
           />
           <div className="info-class">
-          <div className="info-box">
-  <h2 className="book-title">
-    {book.name} (Артикул: {book.id})
-  </h2>
-  <Rating bookId={id} userId={userId} />
-  <p className="book-price">Ціна: {book.price} грн</p>
-  <input
-    type="number"
-    value={quantity}
-    onChange={(e) => setQuantity(Number(e.target.value))}
-    min="1"
-    max="99"
-  />
-  <button onClick={handleAddToCart}>Добавить в корзину</button>
-</div>
-
+            <div className="info-box">
+              <h2 className="book-article">
+                Book number: {book.id}
+              </h2>
+              <h2 className="book-title">
+                {book.name}
+              </h2>
+              <Rating bookId={id} userId={userId} />
+              <div className="intro-text">
+                <p>
+          When you choose our books, you're not just purchasing reading material; you're investing in a journey of enlightenment, entertainment, and enrichment.
+          Join the countless individuals who have elevated their reading experience by indulging in our finest literary offerings.
+          Your decision to acquire our books will undoubtedly be a choice you'll cherish.
+          </p>
+              </div>
+              <p className="book-price"> ${book.price} </p>
+              <div className="quantity-and-button-container">
+              <input
+                type="number"
+                value={quantity}
+                onChange={(e) => setQuantity(Number(e.target.value))}
+                min="1"
+                max="99"
+                className="quantity-input"
+              />
+              <button onClick={handleAddToCart} className="add-to-cart-button">Добавить в корзину</button>
+              </div>
+            </div>
           </div>
         </div>
+      </div>
+      <div className="book-info-container">
         <p className="book-info-heading">Детальна інформація про книгу</p>
-        <table className="book-info-table">
-          <tbody>
-            {book.info.map((item) => (
-              <tr key={item.id}>
-                <td>{item.title}:</td>
-                <td>{item.description}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        {book.info.length > 0 ? (
+          <table className="book-info-table">
+            <tbody>
+              {book.info.map((item) => (
+                <tr key={item.id}>
+                  <td>{item.title}:</td>
+                  <td>{item.description}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <p className="no-info-message">Детальна інформація відсутня</p>
+        )}
       </div>
     </div>
   );
 };
 
 export default BookPage;
+
+
+
+
+

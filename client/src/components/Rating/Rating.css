@@ -1,11 +1,12 @@
 .rating{
     display: inline-flex;
     flex-direction: row-reverse;
+
 }
 .rating__item{
     color:#dcdcdc;
     cursor: pointer;
-    font-size: 30px;
+    font-size: 25px;
     transition: .2s;
 
 }

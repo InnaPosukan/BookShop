@@ -1,37 +1,42 @@
-.book-page-container {
+  
+  .book-details-container {
+    box-sizing: border-box;
+    max-width: 1000px;
+  }
+  .book-page-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     height: auto;
     position: relative;
     font-family: Inter, sans-serif;
+    margin-top: 100px;
   }
-  
-  .book-details-container {
-    margin-top: 30px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    padding: 40px;
-    box-sizing: border-box;
-    width: 60%;
-    border: 1px solid #ddd;
-  }
-  
   .book-details-container img {
     width: 100%;
-    max-width: 270px;
+    max-width: 400px;
     height: auto;
     border-radius: 8px;
   }
-  
+  .book-article{
+    color: grey;
+    font-size: 15px;
+    text-align: left; 
+
+  }
   .info-class {
     flex: 1;
     margin-left: 30px;
-    text-align: center;
     font-size: 24px;
     color: #333;
+    text-align: left;
+
   }
-  
+  .intro-text{
+    font-size: 15px;
+    margin-top: 30px;
+    text-align: justify;
+  }
   .info-box {
     border: 1px solid #ddd;
     padding: 20px;
@@ -41,17 +46,17 @@
   .book-title {
     font-size: 35px;
     font-weight: 700;
-    margin-bottom: 0;
+    margin-top: 40px;
+    text-align: left; 
+
   }
   
   .book-price {
-    font-size: 25px;
+    font-size: 20px;
     margin: 51px 0;
-    display: block;
   }
   
   .add-to-cart-button {
-    margin: 10px 0;
     padding: 10px 20px;
     border-radius: 40px;
     background-color: #FFA500;
@@ -59,7 +64,9 @@
     font-size: 20px;
     border: none;
     cursor: pointer;
+    margin-left: 40px;
   }
+
   
   .book-info-heading {
     font-size: 18px;
@@ -79,4 +86,9 @@
     font-size: 16px;
     border: 1px solid #ddd;
   }
-  
+  .quantity-input {
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    border: 1px solid grey;
+  }

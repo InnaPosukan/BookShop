@@ -48,7 +48,7 @@ const Rating = ({ bookId, userId }) => {
     return (
         userId && (
             <div className="rating-container">
-                <p className="rating-text" style={{ fontSize: '15px', marginTop:'12px' }}>Ваш рейтинг</p>
+                <p className="rating-text" style={{ fontSize: '15px', marginTop:'12px' }}></p>
                 <div className="rating" data-total-value={selectedValue}>
                     <div className={`rating__item ${hasRated ? 'disabled' : ''}`} data-item-value="5" onClick={() => handleRatingClick(5)}>★</div>
                     <div className={`rating__item ${hasRated ? 'disabled' : ''}`} data-item-value="4" onClick={() => handleRatingClick(4)}>★</div>

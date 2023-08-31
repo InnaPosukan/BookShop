@@ -61,7 +61,7 @@ const MainPage = () => {
 
       <div className='section'>
       <div className='title'>
-        <h1>We Offer</h1>
+        <h1>Our Features</h1>
       </div>
       <div className='services'>
         <div className='card'>

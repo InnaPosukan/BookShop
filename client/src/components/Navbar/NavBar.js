@@ -141,7 +141,6 @@ const NavBar = () => {
           <nav className="navbar">
             <a href="/">home</a>
             <a href="/shop">shop</a>
-            <a href="/profile">profile</a>
             <a href="/contact">contact</a>
           </nav>
         </div>

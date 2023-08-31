@@ -38,9 +38,10 @@ const OrderHistory = ({ bookId }) => {
         <h2>Order History</h2>
       </div>
       <div className="order-history-container">
-        <select
+      <select
           value={sortingStatus}
           onChange={event => setSortingStatus(event.target.value)}
+          className="sorting-select" 
         >
           <option value="">All</option>
           <option value="Pending">Pending</option>

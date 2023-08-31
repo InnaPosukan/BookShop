@@ -40,7 +40,7 @@ const AdminOrder = () => {
 
   return (
     <div className='container'>
-      <h1 className='h1'>Admin Orders</h1>
+      <h1 className='h1'>Customer Orders</h1>
       <select
         value={sortingStatus}
         onChange={event => setSortingStatus(event.target.value)}

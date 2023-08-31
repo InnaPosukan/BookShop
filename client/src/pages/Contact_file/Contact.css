@@ -8,7 +8,7 @@
   position: relative;
   width: 100%;
   padding: 40px 100px;
-  background-color: #FFFEEE;
+  background-color: white;
 }
 .contactUs .title{
   display: flex;
@@ -21,6 +21,7 @@
   color:#FFA500;
   font-weight: 500;
   font-size: 30px;
+  font-weight: bold;
 }
 .form{
   grid-area: form;
@@ -33,7 +34,7 @@ grid-area: info;
   grid-area: map;
   }
 .contact{
-  background-color: #fff;
+  background-color: #FFFAEE;
   box-shadow:  0 5px 35px rgba(0, 0,0, 0.15);
 }
 .box{

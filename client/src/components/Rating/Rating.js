@@ -5,8 +5,9 @@ import { sendRating } from '../../http/bookApi';
 const Rating = ({ bookId, userId }) => {
     const [selectedValue, setSelectedValue] = useState(0);
     const [error, setError] = useState(null);
-    const [hasRated, setHasRated] = useState(false); 
-    
+    const [hasRated, setHasRated] = useState(false);
+    const [numberOfVotes, setNumberOfVotes] = useState(0);
+
     useEffect(() => {
         const hasRatedBook = localStorage.getItem(`rated_${bookId}_${userId}`);
         if (hasRatedBook) {
@@ -14,18 +15,19 @@ const Rating = ({ bookId, userId }) => {
             const userRating = parseInt(localStorage.getItem(`rating_${bookId}_${userId}`), 10);
             setSelectedValue(userRating);
         }
+        const usersWhoRated = Object.keys(localStorage).filter(key => key.startsWith(`rated_${bookId}_`)).length;
+        setNumberOfVotes(usersWhoRated);
     }, [bookId, userId]);
 
     const handleRatingClick = async (itemValue) => {
         if (userId && !hasRated) {
             try {
-                console.log("Clicked rating item:", itemValue);
                 setSelectedValue(itemValue);
                 await sendRatingToServer(itemValue);
-                console.log("Rating sent successfully:", itemValue);
                 localStorage.setItem(`rated_${bookId}_${userId}`, true);
-                localStorage.setItem(`rating_${bookId}_${userId}`, itemValue); 
+                localStorage.setItem(`rating_${bookId}_${userId}`, itemValue);
                 setHasRated(true);
+                setNumberOfVotes(prevVotes => prevVotes + 1);
             } catch (error) {
                 setError("Error sending rating");
             }
@@ -45,20 +47,23 @@ const Rating = ({ bookId, userId }) => {
         }
     };
 
-    return (
-        userId && (
-            <div className="rating-container">
-                <p className="rating-text" style={{ fontSize: '15px', marginTop:'12px' }}></p>
-                <div className="rating" data-total-value={selectedValue}>
-                    <div className={`rating__item ${hasRated ? 'disabled' : ''}`} data-item-value="5" onClick={() => handleRatingClick(5)}>★</div>
-                    <div className={`rating__item ${hasRated ? 'disabled' : ''}`} data-item-value="4" onClick={() => handleRatingClick(4)}>★</div>
-                    <div className={`rating__item ${hasRated ? 'disabled' : ''}`} data-item-value="3" onClick={() => handleRatingClick(3)}>★</div>
-                    <div className={`rating__item ${hasRated ? 'disabled' : ''}`} data-item-value="2" onClick={() => handleRatingClick(2)}>★</div>
-                    <div className={`rating__item ${hasRated ? 'disabled' : ''}`} data-item-value="1" onClick={() => handleRatingClick(1)}>★</div>
+        return (
+            userId && (
+                <div className="rating-container">
+                    <div className="rating" data-total-value={selectedValue}>
+                        <div className={`rating__item ${hasRated ? 'disabled' : ''}`} data-item-value="5" onClick={() => handleRatingClick(5)}>★</div>
+                        <div className={`rating__item ${hasRated ? 'disabled' : ''}`} data-item-value="4" onClick={() => handleRatingClick(4)}>★</div>
+                        <div className={`rating__item ${hasRated ? 'disabled' : ''}`} data-item-value="3" onClick={() => handleRatingClick(3)}>★</div>
+                        <div className={`rating__item ${hasRated ? 'disabled' : ''}`} data-item-value="2" onClick={() => handleRatingClick(2)}>★</div>
+                        <div className={`rating__item ${hasRated ? 'disabled' : ''}`} data-item-value="1" onClick={() => handleRatingClick(1)}>★</div>
+                    </div>
+                    <p className={`vote-count ${numberOfVotes >= 0 ? 'visible' : ''}`}>
+                        {numberOfVotes} {numberOfVotes === 1 ? 'vote' : 'votes'}
+                    </p>
                 </div>
-            </div>
-        )
-    );
+            )
+        );
+        
 };
 
 export default Rating;

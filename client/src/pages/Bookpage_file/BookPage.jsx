@@ -108,14 +108,14 @@ const BookPage = () => {
                 max="99"
                 className="quantity-input"
               />
-              <button onClick={handleAddToCart} className="add-to-cart-button">Добавить в корзину</button>
+              <button onClick={handleAddToCart} className="add-to-cart-button">Add to Cart</button>
               </div>
             </div>
           </div>
         </div>
       </div>
       <div className="book-info-container">
-        <p className="book-info-heading">Детальна інформація про книгу</p>
+        <p className="book-info-heading">Detailed information about the book</p>
         {book.info.length > 0 ? (
           <table className="book-info-table">
             <tbody>
@@ -128,7 +128,7 @@ const BookPage = () => {
             </tbody>
           </table>
         ) : (
-          <p className="no-info-message">Детальна інформація відсутня</p>
+          <p className="no-info-message">There is no detailed information</p>
         )}
       </div>
     </div>

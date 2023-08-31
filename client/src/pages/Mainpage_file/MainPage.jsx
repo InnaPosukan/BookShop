@@ -13,24 +13,31 @@ const MainPage = () => {
   useEffect(() => {
     fetchNewBooks();
   }, []);
-
+  
   const fetchNewBooks = async () => {
     try {
+      console.log('Запрос новых книг');
       const newBooksData = await fetchTopNewBooks();
-      setNewBooks(newBooksData.rows);
-      generateRandomBooks(newBooksData.rows);
+      console.log('Получены данные новых книг:', newBooksData);
+      
+      const newRows = newBooksData.rows;
+      console.log('Новые строки данных:', newRows);
+      
+      setNewBooks(newRows);
+      generateRandomBooks(newRows);
     } catch (error) {
-      console.error('Error fetching new books:', error);
+      console.error('Ошибка при получении новых книг:', error);
     }
   };
-
+  
+  
   const generateRandomBooks = (booksData) => {
     const shuffledBooks = booksData.slice();
     for (let i = shuffledBooks.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [shuffledBooks[i], shuffledBooks[j]] = [shuffledBooks[j], shuffledBooks[i]];
     }
-    const selectedBooks = shuffledBooks.slice(0, 4);
+    const selectedBooks = shuffledBooks.slice(0, );
     setRandomBooks(selectedBooks);
   };
 
@@ -51,6 +58,35 @@ const MainPage = () => {
           </Link>
         </div>
       </div>
+
+      <div className='section'>
+      <div className='title'>
+        <h1>We Offer</h1>
+      </div>
+      <div className='services'>
+        <div className='card'>
+          <div className='icon'>
+            <i className='fas fa-car'></i>
+          </div>
+          <h2> Fast Delivery</h2>
+          <p> We take pride in providing swift and efficient delivery services to our valued customers</p>
+        </div>
+        <div className='card'>
+          <div className='icon'>
+            <i className='fas fa-money-bill-wave'></i>
+          </div>
+          <h2> Affordable prices</h2>
+          <p> We are delighted to offer our customers competitive and affordable prices</p>
+        </div>
+        <div className='card'>
+          <div className='icon'>
+            <i className='fas fa-user-tie'></i>
+          </div>
+          <h2> Polite staff</h2>
+          <p> We firmly believe that each individual deserves to be treated with dignity and kindness. </p>
+        </div>
+      </div>
+    </div>
 
       <nav className="custom-navbar">
         <div className="custom-nav-links">
@@ -94,13 +130,15 @@ const MainPage = () => {
 
 )}
 
-
 {currentSection === 'recentlyAdded' && (
   <div className="last-added-books">
     <ul>
       {newBooks
-        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-        .slice(0, 4)
+        .sort((a, b) => {
+          console.log("Sorting:", new Date(b.createdAt), new Date(a.createdAt));
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        })
+        .slice(0, 6)
         .map((book, index) => (
           <li key={book.id}>
             <div className="book-card">
@@ -125,6 +163,7 @@ const MainPage = () => {
     </ul>
   </div>
 )}
+
 
     </div>
   );

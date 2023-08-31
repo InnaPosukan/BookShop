@@ -22,3 +22,38 @@
 {
 color:orange;
 }
+.rating-container {
+    display: flex;
+    align-items: center;
+}
+
+
+.vote-count {
+    margin-left: 10px; 
+    margin-top: 10px;
+    font-size: 15px;
+    color: darkgrey;;
+    display: none; 
+}
+
+.vote-count.visible {
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .rating__item{
+        font-size: 15px;
+    }
+    .vote-count {
+        font-size: 10px;
+    }
+    
+}
+@media (max-width: 414px) {
+    .rating__item{
+        font-size: 10px;
+    }
+    .vote-count {
+        font-size: 7px;
+    }
+}

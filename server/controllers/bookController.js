@@ -95,16 +95,18 @@ class BookController {
   async getTopNewBooks(req, res, next) {
     try {
       const limit = parseInt(req.query.limit) || 4; 
+      console.log('Запрос новых книг на сервере');
       const newBooks = await Book.findAll({
         order: [['createdAt', 'DESC']],
         limit
       });
-      
+      console.log('Получены данные новых книг на сервере:', newBooks);
       return res.json(newBooks);
     } catch (e) {
-      console.error('Error fetching top new books:', e);
+      console.error('Ошибка при получении последних добавленных книг:', e);
       return next(ApiError.internal('Произошла ошибка при получении последних добавленных книг'));
     }
   }
+  
 }
 module.exports = new BookController();

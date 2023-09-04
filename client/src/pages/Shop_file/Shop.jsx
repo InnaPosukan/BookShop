@@ -7,11 +7,9 @@ import { observer } from 'mobx-react-lite';
 import { Context } from '../..';
 import { fetchBooks, fetchTypes } from '../../http/bookApi';
 import Pages from '../../components/Pagination/Pages';
-import './Shop.css'; 
-import { decode as jwt_decode } from 'jsonwebtoken';
 
 const Shop = observer(() => {
-  const { book, user } = useContext(Context); 
+  const { book } = useContext(Context); 
 
   useEffect(() => {
     fetchTypes().then(data => book.setTypes(data));
@@ -35,7 +33,6 @@ const Shop = observer(() => {
   const navigate = useNavigate();
 
   const handleAdminClick = () => {
-    console.log('Navigating to admin route...');
     navigate(ADMIN_ROUTE);
   };
 

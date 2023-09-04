@@ -1,13 +1,14 @@
 import React from 'react';
+import './Footer.css'; // Импортируем файл стилей
 
 const Footer = () => {
   return (
-    <footer className="footer bg-light" style={{ left: 0, bottom: 0, width: "100%", position: "relative", marginTop:"0", boxShadow: "0 -2px 4px rgba(0, 0, 0, 0.1)" }}>
+    <footer className="footer bg-light">
       <div className="container-fluid">
         <div className="row">
           <div className="col-md-4">
             <h5>About Us</h5>
-            <p style={{ textAlign: "left" }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla malesuada tellus eu nulla malesuada, vel efficitur est tincidunt.</p>
+            <p style={{ textAlign: "left" }}>    Welcome to BookShop! We are passionate about books and believe in the power of literature to inspire, educate, and entertain. Our mission is to provide book lovers with a wide selection of books across various genres.</p>
           </div>
           <div className="col-md-6">
             <h5>Contact Us</h5>

@@ -160,11 +160,11 @@ const Basket = () => {
         <table className="cart-table">
           <thead>
             <tr>
-            <th>Изображение</th>
-              <th>Название</th>
-              <th>Цена</th>
-              <th>Количество</th>
-              <th>Действие</th>
+            <th>Image</th>
+              <th>Book Title</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -188,7 +188,7 @@ const Basket = () => {
         </td>
         <td>
           {cartItem.book
-            ? cartItem.book.price * cartItem.quantity + " грн"
+            ? cartItem.book.price * cartItem.quantity + " $"
             : ""}
         </td>
         <td>
@@ -233,8 +233,8 @@ const Basket = () => {
 
       <div className="additional-container">
   <div className="additional-content">
-    <p>Общее количество товаров в корзине: {totalItems}</p>
-    <p>Общая стоимость: {totalCost} грн</p>
+    <p>Total number of items in the cart: {totalItems}</p>
+    <p>Total cost: {totalCost} $</p>
   </div>
   <button className='button btn-outline-dark' onClick={openModal}>
     Buy

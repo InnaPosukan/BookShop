@@ -58,7 +58,7 @@ const NavBar = () => {
     user.setIsAuth(false);
     setIsLogoutVisible(false);
     setTotalItems(0);
-    alert('Вы успешно вышли из аккаунта');
+    alert('You have successfully logged out!');
     window.location.href = '/'; 
   };
 
@@ -150,7 +150,7 @@ const NavBar = () => {
         <nav className="navbar">
           <Link to="/" className="fas fa-home"></Link>
           <Link to="/shop" className="fas fa-shop"></Link>
-          <Link to="/contact" className="fas fa-blog"></Link>
+          <Link to="/contact" className="fas fa-phone"></Link>
         </nav>
       </nav>
     </div>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { deleteBookById } from "../../http/bookApi";
 
 const DeleteBookModal = ({ show, onHide }) => {
-  const [bookId, setBookId] = useState('');
+  const [bookId, setBookId] = useState(''); 
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 

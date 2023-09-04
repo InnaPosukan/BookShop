@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { createOrders } from "../../http/bookApi";
 import { useCartData } from "../Context/CartDataContext";
 const CreateOrders = ({ show, onHide }) => {
@@ -24,6 +23,8 @@ const CreateOrders = ({ show, onHide }) => {
       try {
         const createdOrder = await createOrders(orderData); 
         console.log("Order created:", createdOrder);
+        alert("Your order has been processed! See the status of your order in order history.If you have any questions write to us on the contact page.");
+
         await clearCart(); 
         onHide();
       } catch (error) {

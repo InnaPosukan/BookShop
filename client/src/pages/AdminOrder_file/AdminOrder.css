@@ -1,44 +1,78 @@
-.container {
-    margin: 20px auto;
-    max-width: 800px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-  
-  .order-list {
-    margin-top: 20px;
-  }
-  
-  .order-item {
-    margin-bottom: 20px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .order-item p {
-    margin: 5px 0;
-  }
-  
-  .ordered-books-list {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .ordered-books-list li {
-    margin-bottom: 5px;
-  }
-  
-  .total-price {
-    font-weight: bold;
-  }
-  
- 
+
+.h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.filter-section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+label {
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+select {
+  padding: 8px;
+  font-size: 16px;
+}
+
+.order-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.order-item {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.order-details {
+  flex: 1;
+}
+
+.order-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+button {
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #FFA500;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: darkorange;
+}
+
+.ordered-books-list {
+  list-style: none;
+  padding: 0;
+}
+
+.ordered-books-list li {
+  margin-bottom: 10px;
+  border-top: 1px solid #ddd;
+  padding-top: 10px;
+}
+
+.total-price {
+  font-weight: bold;
+}
+

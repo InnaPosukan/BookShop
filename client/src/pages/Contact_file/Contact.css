@@ -89,6 +89,8 @@ grid-area: info;
   border: 1px solid #333;
   max-width: 80%;
   margin-left: 30px;
+  text-transform: none;
+
 
 
 }
@@ -188,4 +190,7 @@ grid-area: info;
     min-height: 300px;
     padding: 0;
   }
+  .inputBox textarea {
+    max-width: 80%;
+}
 }

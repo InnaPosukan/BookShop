@@ -57,7 +57,7 @@
 
 .last-added-books .book-image,
 .random-books .book-image {
-  height: 300px;
+  height: 350px;
   width: 250px;
   border-radius: 10%;
   display: block;
@@ -208,7 +208,7 @@
 
   .last-added-books .book-image,
   .random-books .book-image {
-    height: 300px;
+    height: 340px;
     max-width: 300px;
     border-radius: 10%;
     display: block;

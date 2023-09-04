@@ -47,23 +47,20 @@ const Rating = ({ bookId, userId }) => {
         }
     };
 
-        return (
-            userId && (
-                <div className="rating-container">
-                    <div className="rating" data-total-value={selectedValue}>
-                        <div className={`rating__item ${hasRated ? 'disabled' : ''}`} data-item-value="5" onClick={() => handleRatingClick(5)}>★</div>
-                        <div className={`rating__item ${hasRated ? 'disabled' : ''}`} data-item-value="4" onClick={() => handleRatingClick(4)}>★</div>
-                        <div className={`rating__item ${hasRated ? 'disabled' : ''}`} data-item-value="3" onClick={() => handleRatingClick(3)}>★</div>
-                        <div className={`rating__item ${hasRated ? 'disabled' : ''}`} data-item-value="2" onClick={() => handleRatingClick(2)}>★</div>
-                        <div className={`rating__item ${hasRated ? 'disabled' : ''}`} data-item-value="1" onClick={() => handleRatingClick(1)}>★</div>
-                    </div>
-                    <p className={`vote-count ${numberOfVotes >= 0 ? 'visible' : ''}`}>
-                        {numberOfVotes} {numberOfVotes === 1 ? 'vote' : 'votes'}
-                    </p>
-                </div>
-            )
-        );
-        
+    return (
+        <div className="rating-container">
+            <div className="rating" data-total-value={selectedValue}>
+                <div className={`rating__item ${hasRated ? 'disabled' : ''}`} data-item-value="5" onClick={() => handleRatingClick(5)}>★</div>
+                <div className={`rating__item ${hasRated ? 'disabled' : ''}`} data-item-value="4" onClick={() => handleRatingClick(4)}>★</div>
+                <div className={`rating__item ${hasRated ? 'disabled' : ''}`} data-item-value="3" onClick={() => handleRatingClick(3)}>★</div>
+                <div className={`rating__item ${hasRated ? 'disabled' : ''}`} data-item-value="2" onClick={() => handleRatingClick(2)}>★</div>
+                <div className={`rating__item ${hasRated ? 'disabled' : ''}`} data-item-value="1" onClick={() => handleRatingClick(1)}>★</div>
+            </div>
+            <p className={`vote-count ${numberOfVotes >= 0 ? 'visible' : ''}`}>
+                {numberOfVotes} {numberOfVotes === 1 ? 'vote' : 'votes'}
+            </p>
+        </div>
+    );
 };
 
 export default Rating;

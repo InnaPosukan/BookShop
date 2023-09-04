@@ -5,14 +5,13 @@ import { decode as jwt_decode } from 'jsonwebtoken';
 import { fetchOneBook, fetchAverageRating, sendRating, updateBookRating, addToCart } from '../../http/bookApi';
 import './BookPage.css';
 import { useBasket} from '../../components/Context/BasketContext';
+
 const BookPage = () => {
   const { increaseTotalItems } = useBasket();
-
   const [book, setBook] = useState({ info: [] });
   const imageSrc = process.env.REACT_APP_API_URL + book.img;
   const [userId, setUserId] = useState(null);
   const [quantity, setQuantity] = useState(1); 
-
   const { id } = useParams();
 
   useEffect(() => {
@@ -78,10 +77,13 @@ const BookPage = () => {
     <div className="book-page-container">
       <div className="book-details-container">
         <div style={{ display: "flex" }}>
-          <img
-            src={imageSrc}
-            alt={book.name}
-          />
+          <div className="image-bookpage-container">
+            <img
+              src={imageSrc}
+              alt={book.name}
+              className="book-image" 
+            />
+          </div>
           <div className="info-class">
             <div className="info-box">
               <h2 className="book-article">

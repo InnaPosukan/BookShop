@@ -33,7 +33,7 @@ const CreateBook = observer(({ show, onHide }) => {
     borderRadius: "10px",
     boxShadow: "0 2px 6px rgba(0, 0, 0, 0.2)",
     maxWidth: "400px",
-    maxHeight: "80%",  // Set a maximum height for the modal content
+    maxHeight: "80%",  
     overflowY: "auto",
   };
 
@@ -110,12 +110,21 @@ const CreateBook = observer(({ show, onHide }) => {
       formData.append("img", file);
       formData.append("typeId", selectedType.id);
       formData.append("info", JSON.stringify(info));
-
-      createBook(formData).then((data) => onHide());
+  
+      createBook(formData)
+        .then((data) => {
+          alert("The book has been successfully added!");
+          onHide();
+        })
+        .catch((error) => {
+          console.error("Error adding book:", error);
+          alert("Error adding book. Please try again.");
+        });
     } else {
       console.error("Selected type is null.");
     }
   };
+  
   const addInfo = () => {
     setInfo([...info, { title: "", description: "", number: Date.now() }]);
   };
@@ -146,8 +155,7 @@ const CreateBook = observer(({ show, onHide }) => {
   const scrollableContainerStyles = {
     padding: "0 10px",
   };
-  const hasInfo = info.length > 0; // Check if there are added info properties
-
+  const hasInfo = info.length > 0; 
   return (
     <div style={modalStyles}>
       <div style={modalContentStyles}>

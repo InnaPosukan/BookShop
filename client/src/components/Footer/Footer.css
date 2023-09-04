@@ -1,0 +1,26 @@
+.footer {
+    left: 0;
+    top:50px;
+    bottom: 0;
+    width: 100%;
+    position: relative;
+    margin-top: 0;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+
+@media(max-width:768px){
+    .footer{
+        margin-bottom: 90px;
+        margin-top: 60px;
+
+    }
+
+}
+@media(max-width:450px){
+    .footer{
+        margin-bottom: 80px;
+        margin-top: 50px;
+
+    }
+}

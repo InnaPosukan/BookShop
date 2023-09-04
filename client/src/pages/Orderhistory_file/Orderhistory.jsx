@@ -51,20 +51,20 @@ const OrderHistory = ({ bookId }) => {
         <ul className="order-history-list">
           {orderHistory.map((order, index) => (
             <li key={index} className="order-history-item">
-                <p>Заказ {index + 1}:</p>
-                <p>Имя: {order.firstName}</p>
-                <p>Фамилия: {order.lastName}</p>
-                <p>Статус: {order.status}</p>
-                <p>Адрес: {order.address}</p>
-                <p>Телефон: {order.phoneNumber}</p>
-                <p>Книги в заказе:</p>
+                <p>Order {index + 1}:</p>
+                <p>First name: {order.firstName}</p>
+                <p>Last name: {order.lastName}</p>
+                <p>Status: {order.status}</p>
+                <p>Address: {order.address}</p>
+                <p>Phone: {order.phoneNumber}</p>
+                <p>Ordered Books:</p>
                 {order.basket && order.basket.basket_books && order.basket.basket_books.length > 0 ? (
                   <ul className="ordered-books-list">
                     {order.basket.basket_books.map((basketBook, bookIndex) => (
                       <li key={bookIndex}>
-                        <p>Название: {basketBook.book.name}</p>
-                        <p>Цена: {basketBook.book.price} грн</p>
-                        <p>Количество: {basketBook.quantity}</p>
+                        <p>Book Title: {basketBook.book.name}</p>
+                        <p>Price: {basketBook.book.price} $</p>
+                        <p>Quantity: {basketBook.quantity}</p>
                       </li>
                     ))}
                     <li className="total-price">
@@ -72,7 +72,7 @@ const OrderHistory = ({ bookId }) => {
                   </li>
                   </ul>
                 ) : (
-                  <p>Нет информации о книгах в этом заказе.</p>
+                  <p>No information available for books in this order.</p>
                 )}
               </li>
             ))}

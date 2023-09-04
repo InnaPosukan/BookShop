@@ -4,12 +4,14 @@ import CreateType from '../../components/modals/createType';
 import CreateBook from '../../components/modals/createBook';
 import './Admin.css';
 import { Link } from 'react-router-dom';
-import DeleteBookModal from '../../components/modals/deleteBook'; // Update the path if necessary
+import DeleteBookModal from '../../components/modals/deleteBook'; 
+import DeleteTypeModal from '../../components/modals/deleteType';
 
 const Admin = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [addBookVisible, setAddBookVisible] = useState(false);
   const [deleteBookVisible, setDeleteBookVisible] = useState(false);
+  const [deleteTypeVisible, setDeleteTypeVisible] = useState(false);
 
   const openDeleteBookModal = () => {
     setDeleteBookVisible(true);
@@ -39,8 +41,16 @@ const Admin = () => {
     setDeleteBookVisible(false);
 
   };
+  const openDeleteTypeModal = () => {
+    setDeleteTypeVisible(true);
+  };
+  
+  const closeDeleteTypeModal = () => {
+    setDeleteTypeVisible(false);
+  };
+  
   return (
-    <div className='container'>
+    <div className='container-admin'>
       <div className='bordered-container'>
         <h1 className='h1'>Admin Page</h1>
         <div className='button-container'>
@@ -69,6 +79,16 @@ const Admin = () => {
 >
   Delete Book
 </button>
+<button
+  className='button btn-outline-danger'
+  onClick={openDeleteTypeModal}
+>
+  Delete Type
+</button>
+{deleteTypeVisible && (
+  <DeleteTypeModal show={deleteTypeVisible} onHide={closeDeleteTypeModal} />
+)}
+
 
 {deleteBookVisible && (
   <DeleteBookModal show={deleteBookVisible} onHide={closeDeleteBookModal} onDeleteConfirm={confirmDeleteBook} 

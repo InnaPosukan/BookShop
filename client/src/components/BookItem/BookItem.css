@@ -17,7 +17,7 @@
   border: 1px solid #ccc;
   border-radius: 4px;
   overflow: hidden;
-  transition: transform 0.3s ease; /* Add transition property */
+  transition: transform 0.3s ease; 
 }
 
 .book-image {
@@ -49,10 +49,9 @@
   text-align: center;
 }
 
-/* Add a CSS rule to enlarge the book item on hover */
 .book-item-container:hover {
-  transform: scale(1.05); /* Enlarge the item by 5% on hover */
-  transition: transform 0.3s ease; /* Apply a smooth transition */
+  transform: scale(1.05);
+  transition: transform 0.3s ease; 
 }
 
 @media (max-width: 991px) {
@@ -66,6 +65,8 @@
   .book-image-container {
     width: 280px;
     height: 420px;
+    margin-top: 40px;
+
   }
   .book-item-container {
     margin-left: 140px;
@@ -86,6 +87,8 @@
   .book-image-container {
     width: 150px;
     height: 250px;
+    margin-top: 30px;
+
   }
   .book-item-container {
     margin-left: 50px;

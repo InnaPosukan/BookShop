@@ -61,7 +61,7 @@ const MainPage = () => {
 
       <div className='section'>
       <div className='title'>
-        <h1>Our Features</h1>
+        <h1>Our Services</h1>
       </div>
       <div className='services'>
         <div className='card'>
@@ -104,41 +104,37 @@ const MainPage = () => {
           </a>
         </div>
       </nav>
-      {currentSection === 'recommend' && (
-        <div className="random-books">
-  <ul>
-    {randomBooks.map((book, index) => (
-      <li key={book.id}>
-        <Link to={`/bookpage/${book.id}`}>
-          <div className="book-card">
-            <img
-              src={process.env.REACT_APP_API_URL + book.img}
-              alt={book.name}
-              className="book-image"
-            />
-            <div className="book-info">
-              <span className="book-title" style={{ fontSize: '15px' }}>
-                {book.name}
-              </span>
+{currentSection === 'recommend' && (
+  <div className="random-books">
+    <ul>
+      {randomBooks.slice(0, 4).map((book, index) => (
+        <li key={book.id}>
+          <Link to={`/bookpage/${book.id}`}>
+            <div className="book-card">
+              <img
+                src={process.env.REACT_APP_API_URL + book.img}
+                alt={book.name}
+                className="book-image"
+              />
+              <div className="book-info">
+                <span className="book-title" style={{ fontSize: '15px' }}>
+                  {book.name}
+                </span>
+              </div>
             </div>
-          </div>
-        </Link>
-      </li>
-    ))}
-  </ul>
-</div>
-
+          </Link>
+        </li>
+      ))}
+    </ul>
+  </div>
 )}
 
 {currentSection === 'recentlyAdded' && (
   <div className="last-added-books">
     <ul>
       {newBooks
-        .sort((a, b) => {
-          console.log("Sorting:", new Date(b.createdAt), new Date(a.createdAt));
-          return new Date(b.createdAt) - new Date(a.createdAt);
-        })
-        .slice(0, 6)
+        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+        .slice(0, 4) 
         .map((book, index) => (
           <li key={book.id}>
             <div className="book-card">

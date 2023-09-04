@@ -155,3 +155,12 @@ export const fetchTopNewBooks = async (limit = 4) => {
     throw error;
   }
 };
+export const deleteTypeById = async (typeId) => {
+  try {
+    const { data } = await $authHost.delete(`api/type/${typeId}`);
+    return data;
+  } catch (error) {
+    console.error('Error deleting type by ID:', error);
+    throw error;
+  }
+};
